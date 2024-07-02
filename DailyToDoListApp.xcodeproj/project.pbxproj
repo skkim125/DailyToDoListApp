@@ -9,21 +9,34 @@
 /* Begin PBXBuildFile section */
 		04E8889E2C33DFEA000A3FA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8889D2C33DFEA000A3FA1 /* AppDelegate.swift */; };
 		04E888A02C33DFEA000A3FA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8889F2C33DFEA000A3FA1 /* SceneDelegate.swift */; };
-		04E888A22C33DFEA000A3FA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888A12C33DFEA000A3FA1 /* ViewController.swift */; };
-		04E888A52C33DFEA000A3FA1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 04E888A42C33DFEA000A3FA1 /* Base */; };
+		04E888A22C33DFEA000A3FA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888A12C33DFEA000A3FA1 /* MainViewController.swift */; };
 		04E888A72C33DFEB000A3FA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04E888A62C33DFEB000A3FA1 /* Assets.xcassets */; };
 		04E888AA2C33DFEB000A3FA1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 04E888A92C33DFEB000A3FA1 /* Base */; };
+		04E888B52C33E632000A3FA1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 04E888B42C33E632000A3FA1 /* SnapKit */; };
+		04E888B82C33E63D000A3FA1 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 04E888B72C33E63D000A3FA1 /* IQKeyboardManagerSwift */; };
+		04E888BB2C33E68A000A3FA1 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 04E888BA2C33E68A000A3FA1 /* RealmSwift */; };
+		04E888BD2C33E6D6000A3FA1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888BC2C33E6D6000A3FA1 /* BaseViewController.swift */; };
+		04E888BF2C33E6E0000A3FA1 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888BE2C33E6E0000A3FA1 /* BaseCell.swift */; };
+		04E888C22C33EC4E000A3FA1 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888C12C33EC4E000A3FA1 /* ToDo.swift */; };
+		04E888C62C33F096000A3FA1 /* ToDoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888C52C33F096000A3FA1 /* ToDoListTableViewCell.swift */; };
+		04E888C82C33F749000A3FA1 /* AddToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888C72C33F749000A3FA1 /* AddToDoViewController.swift */; };
+		04E888CA2C33F7AC000A3FA1 /* IdProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888C92C33F7AC000A3FA1 /* IdProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		04E8889A2C33DFEA000A3FA1 /* DailyToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E8889D2C33DFEA000A3FA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04E8889F2C33DFEA000A3FA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		04E888A12C33DFEA000A3FA1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		04E888A42C33DFEA000A3FA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		04E888A12C33DFEA000A3FA1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		04E888A62C33DFEB000A3FA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04E888A92C33DFEB000A3FA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04E888AB2C33DFEB000A3FA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04E888BC2C33E6D6000A3FA1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		04E888BE2C33E6E0000A3FA1 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		04E888C12C33EC4E000A3FA1 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		04E888C52C33F096000A3FA1 /* ToDoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTableViewCell.swift; sourceTree = "<group>"; };
+		04E888C72C33F749000A3FA1 /* AddToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewController.swift; sourceTree = "<group>"; };
+		04E888C92C33F7AC000A3FA1 /* IdProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +44,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04E888BB2C33E68A000A3FA1 /* RealmSwift in Frameworks */,
+				04E888B52C33E632000A3FA1 /* SnapKit in Frameworks */,
+				04E888B82C33E63D000A3FA1 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,13 +74,42 @@
 			children = (
 				04E8889D2C33DFEA000A3FA1 /* AppDelegate.swift */,
 				04E8889F2C33DFEA000A3FA1 /* SceneDelegate.swift */,
-				04E888A12C33DFEA000A3FA1 /* ViewController.swift */,
-				04E888A32C33DFEA000A3FA1 /* Main.storyboard */,
+				04E888C02C33E6E4000A3FA1 /* Base */,
+				04E888CB2C340097000A3FA1 /* Main */,
+				04E888C12C33EC4E000A3FA1 /* ToDo.swift */,
+				04E888C92C33F7AC000A3FA1 /* IdProtocol.swift */,
 				04E888A62C33DFEB000A3FA1 /* Assets.xcassets */,
 				04E888A82C33DFEB000A3FA1 /* LaunchScreen.storyboard */,
 				04E888AB2C33DFEB000A3FA1 /* Info.plist */,
 			);
 			path = DailyToDoListApp;
+			sourceTree = "<group>";
+		};
+		04E888C02C33E6E4000A3FA1 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				04E888BC2C33E6D6000A3FA1 /* BaseViewController.swift */,
+				04E888BE2C33E6E0000A3FA1 /* BaseCell.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		04E888CB2C340097000A3FA1 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				04E888A12C33DFEA000A3FA1 /* MainViewController.swift */,
+				04E888C52C33F096000A3FA1 /* ToDoListTableViewCell.swift */,
+				04E888CC2C3400A4000A3FA1 /* Add */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		04E888CC2C3400A4000A3FA1 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				04E888C72C33F749000A3FA1 /* AddToDoViewController.swift */,
+			);
+			path = Add;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +128,11 @@
 			dependencies = (
 			);
 			name = DailyToDoListApp;
+			packageProductDependencies = (
+				04E888B42C33E632000A3FA1 /* SnapKit */,
+				04E888B72C33E63D000A3FA1 /* IQKeyboardManagerSwift */,
+				04E888BA2C33E68A000A3FA1 /* RealmSwift */,
+			);
 			productName = DailyToDoListApp;
 			productReference = 04E8889A2C33DFEA000A3FA1 /* DailyToDoListApp.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +161,11 @@
 				Base,
 			);
 			mainGroup = 04E888912C33DFEA000A3FA1;
+			packageReferences = (
+				04E888B32C33E631000A3FA1 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				04E888B62C33E63D000A3FA1 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				04E888B92C33E68A000A3FA1 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 04E8889B2C33DFEA000A3FA1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +182,6 @@
 			files = (
 				04E888A72C33DFEB000A3FA1 /* Assets.xcassets in Resources */,
 				04E888AA2C33DFEB000A3FA1 /* Base in Resources */,
-				04E888A52C33DFEA000A3FA1 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +192,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04E888A22C33DFEA000A3FA1 /* ViewController.swift in Sources */,
+				04E888C62C33F096000A3FA1 /* ToDoListTableViewCell.swift in Sources */,
+				04E888A22C33DFEA000A3FA1 /* MainViewController.swift in Sources */,
+				04E888BD2C33E6D6000A3FA1 /* BaseViewController.swift in Sources */,
 				04E8889E2C33DFEA000A3FA1 /* AppDelegate.swift in Sources */,
+				04E888CA2C33F7AC000A3FA1 /* IdProtocol.swift in Sources */,
+				04E888C82C33F749000A3FA1 /* AddToDoViewController.swift in Sources */,
+				04E888C22C33EC4E000A3FA1 /* ToDo.swift in Sources */,
+				04E888BF2C33E6E0000A3FA1 /* BaseCell.swift in Sources */,
 				04E888A02C33DFEA000A3FA1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +207,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		04E888A32C33DFEA000A3FA1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				04E888A42C33DFEA000A3FA1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		04E888A82C33DFEB000A3FA1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -296,9 +348,9 @@
 				INFOPLIST_FILE = DailyToDoListApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,9 +358,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.harvey.DailyToDoListApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -323,9 +379,9 @@
 				INFOPLIST_FILE = DailyToDoListApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -333,9 +389,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.harvey.DailyToDoListApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -361,6 +421,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		04E888B32C33E631000A3FA1 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		04E888B62C33E63D000A3FA1 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.3;
+			};
+		};
+		04E888B92C33E68A000A3FA1 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.52.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		04E888B42C33E632000A3FA1 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04E888B32C33E631000A3FA1 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		04E888B72C33E63D000A3FA1 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04E888B62C33E63D000A3FA1 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		04E888BA2C33E68A000A3FA1 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04E888B92C33E68A000A3FA1 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 04E888922C33DFEA000A3FA1 /* Project object */;
 }
