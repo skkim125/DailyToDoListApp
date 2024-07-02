@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import RealmSwift
 import SnapKit
 
 final class AddToDoViewController: BaseViewController {
     private let tableView = UITableView()
+    private var titleText: String?
+    private var memo: String?
+    private let realm = try! Realm()
     
     override func configureNavigationBar() {
         navigationItem.title = "새로운 할 일"
@@ -23,10 +27,26 @@ final class AddToDoViewController: BaseViewController {
     }
     
     @objc private func addButtonClicked() {
-        
-        
-        
+        try! realm.write {
+            if let titleText = titleText {
+                let todo = Todo(title: titleText, memo: "memo", hashTag: "테스트", date: Date(), deadline: Date(), isImportant: false, image: "테스트")
+                
+                realm.add(todo)
+            }
+        }
+
         dismiss(animated: true)
+    }
+    
+    func isSaveButtonEnable() {
+        
+        if let title = titleText {
+            if title.trimmingCharacters(in: .whitespaces).isEmpty {
+                navigationItem.rightBarButtonItem?.isEnabled = false
+            } else {
+                navigationItem.rightBarButtonItem?.isEnabled = true
+            }
+        }
     }
     
     override func configureHierarchy() {
@@ -35,8 +55,7 @@ final class AddToDoViewController: BaseViewController {
     
     override func configureLayout() {
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
     }
@@ -48,6 +67,13 @@ final class AddToDoViewController: BaseViewController {
         tableView.register(ContentsTableViewCell.self, forCellReuseIdentifier: ContentsTableViewCell.id)
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        print(titleText ?? "타이틀 입력 오류")
+        print(memo ?? "메모 입력 오류")
     }
     
 }
@@ -68,7 +94,16 @@ extension AddToDoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             cell.isUserInteractionEnabled = true
             
+            if let ttfCell = cell.contentsTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TitleTFTableViewCell {
+                ttfCell.titleTextField.delegate = self
+            }
+            
+            if let textViewCell = cell.contentsTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? MemoTextViewTableViewCell {
+                textViewCell.memoTextView.delegate = self
+            }
+            
             return cell
+                                                                    
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoTableViewCell.id, for: indexPath) as! AddTodoTableViewCell
             
@@ -78,5 +113,36 @@ extension AddToDoViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         }
+    }
+}
+
+extension AddToDoViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        print(textField.text)
+        titleText = textField.text
+        isSaveButtonEnable()
+        if let title = titleText {
+            print(title)
+        }
+    }
+}
+
+extension AddToDoViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        
+        let size = CGSize(width: textView.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        let numberOfLines = Int(estimatedSize.height / (textView.font!.lineHeight))
+        
+        textView.constraints.forEach { constraint in
+            
+            if constraint.firstAttribute == .height && numberOfLines <= 4{
+                constraint.constant = estimatedSize.height
+            } else if numberOfLines > 4 {
+                textView.isScrollEnabled = true
+            }
+        }
+        memo = textView.text!
+        print(memo)
     }
 }

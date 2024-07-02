@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class ContentsTableViewCell: BaseTableViewCell {
-    private let contentsTableView = UITableView()
+    let contentsTableView = UITableView()
     
     override func configureHierarchy() {
         contentView.addSubview(contentsTableView)
@@ -19,7 +19,7 @@ class ContentsTableViewCell: BaseTableViewCell {
         contentsTableView.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).inset(15)
             make.horizontalEdges.bottom.equalTo(contentView.safeAreaLayoutGuide).inset(15)
-            make.bottom.equalTo(contentsTableView)
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide)
         }
     }
     
@@ -27,7 +27,8 @@ class ContentsTableViewCell: BaseTableViewCell {
         
         contentsTableView.delegate = self
         contentsTableView.dataSource = self
-        contentsTableView.register(AddTodoContentTableViewCell.self, forCellReuseIdentifier: AddTodoContentTableViewCell.id)
+        contentsTableView.register(MemoTextViewTableViewCell.self, forCellReuseIdentifier: MemoTextViewTableViewCell.id)
+        contentsTableView.register(TitleTFTableViewCell.self, forCellReuseIdentifier: TitleTFTableViewCell.id)
         contentsTableView.isScrollEnabled = false
         contentsTableView.layer.cornerRadius = 10
     }
@@ -48,15 +49,19 @@ extension ContentsTableViewCell: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoContentTableViewCell.id, for: indexPath) as! AddTodoContentTableViewCell
-        cell.selectionStyle = .none
-        
         if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TitleTFTableViewCell.id, for: indexPath) as! TitleTFTableViewCell
             cell.configureContentViewCell()
+            print("title", indexPath.row)
+            
             return cell
             
         } else {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: MemoTextViewTableViewCell.id, for: indexPath) as! MemoTextViewTableViewCell
+            
             cell.configureMemoTextView()
+            print("memo", indexPath.row)
             
             return cell
         }
