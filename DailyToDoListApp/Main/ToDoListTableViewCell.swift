@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ToDoListTableViewCell: BaseTableViewCell {
+final class ToDoListTableViewCell: BaseTableViewCell {
     
     
     

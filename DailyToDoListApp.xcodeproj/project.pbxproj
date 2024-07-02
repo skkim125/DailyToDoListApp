@@ -21,6 +21,10 @@
 		04E888C62C33F096000A3FA1 /* ToDoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888C52C33F096000A3FA1 /* ToDoListTableViewCell.swift */; };
 		04E888C82C33F749000A3FA1 /* AddToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888C72C33F749000A3FA1 /* AddToDoViewController.swift */; };
 		04E888CA2C33F7AC000A3FA1 /* IdProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888C92C33F7AC000A3FA1 /* IdProtocol.swift */; };
+		04E888CE2C340101000A3FA1 /* AddTodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888CD2C340101000A3FA1 /* AddTodoTableViewCell.swift */; };
+		04E888D02C340137000A3FA1 /* AddTodoContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888CF2C340137000A3FA1 /* AddTodoContentTableViewCell.swift */; };
+		04E888D22C3401AF000A3FA1 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888D12C3401AF000A3FA1 /* Enum.swift */; };
+		04E888D82C340452000A3FA1 /* ContentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888D72C340452000A3FA1 /* ContentsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +41,10 @@
 		04E888C52C33F096000A3FA1 /* ToDoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTableViewCell.swift; sourceTree = "<group>"; };
 		04E888C72C33F749000A3FA1 /* AddToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewController.swift; sourceTree = "<group>"; };
 		04E888C92C33F7AC000A3FA1 /* IdProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdProtocol.swift; sourceTree = "<group>"; };
+		04E888CD2C340101000A3FA1 /* AddTodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoTableViewCell.swift; sourceTree = "<group>"; };
+		04E888CF2C340137000A3FA1 /* AddTodoContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoContentTableViewCell.swift; sourceTree = "<group>"; };
+		04E888D12C3401AF000A3FA1 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
+		04E888D72C340452000A3FA1 /* ContentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +85,7 @@
 				04E888C02C33E6E4000A3FA1 /* Base */,
 				04E888CB2C340097000A3FA1 /* Main */,
 				04E888C12C33EC4E000A3FA1 /* ToDo.swift */,
+				04E888D12C3401AF000A3FA1 /* Enum.swift */,
 				04E888C92C33F7AC000A3FA1 /* IdProtocol.swift */,
 				04E888A62C33DFEB000A3FA1 /* Assets.xcassets */,
 				04E888A82C33DFEB000A3FA1 /* LaunchScreen.storyboard */,
@@ -108,6 +117,9 @@
 			isa = PBXGroup;
 			children = (
 				04E888C72C33F749000A3FA1 /* AddToDoViewController.swift */,
+				04E888CD2C340101000A3FA1 /* AddTodoTableViewCell.swift */,
+				04E888D72C340452000A3FA1 /* ContentsTableViewCell.swift */,
+				04E888CF2C340137000A3FA1 /* AddTodoContentTableViewCell.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -194,6 +206,8 @@
 			files = (
 				04E888C62C33F096000A3FA1 /* ToDoListTableViewCell.swift in Sources */,
 				04E888A22C33DFEA000A3FA1 /* MainViewController.swift in Sources */,
+				04E888D82C340452000A3FA1 /* ContentsTableViewCell.swift in Sources */,
+				04E888D22C3401AF000A3FA1 /* Enum.swift in Sources */,
 				04E888BD2C33E6D6000A3FA1 /* BaseViewController.swift in Sources */,
 				04E8889E2C33DFEA000A3FA1 /* AppDelegate.swift in Sources */,
 				04E888CA2C33F7AC000A3FA1 /* IdProtocol.swift in Sources */,
@@ -201,6 +215,8 @@
 				04E888C22C33EC4E000A3FA1 /* ToDo.swift in Sources */,
 				04E888BF2C33E6E0000A3FA1 /* BaseCell.swift in Sources */,
 				04E888A02C33DFEA000A3FA1 /* SceneDelegate.swift in Sources */,
+				04E888D02C340137000A3FA1 /* AddTodoContentTableViewCell.swift in Sources */,
+				04E888CE2C340101000A3FA1 /* AddTodoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
