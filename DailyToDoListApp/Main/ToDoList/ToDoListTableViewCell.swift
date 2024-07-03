@@ -2,13 +2,12 @@
 //  ToDoListTableViewCell.swift
 //  DailyToDoListApp
 //
-//  Created by 김상규 on 7/2/24.
+//  Created by 김상규 on 7/3/24.
 //
 
 import UIKit
-import SnapKit
 
-final class ToDoListTableViewCell: BaseTableViewCell {
+class ToDoListTableViewCell: BaseTableViewCell {
     
     private let todoTitleLabel = UILabel()
     private let memoLabel = UILabel()
