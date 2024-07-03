@@ -10,9 +10,9 @@ import SnapKit
 
 final class MainCollectionView: BaseCollectionViewCell {
     
-    let imageView = UIImageView()
-    let collectionTitleLabel = UILabel()
-    let listCountLabel = UILabel()
+    private let imageView = UIImageView()
+    private let collectionTitleLabel = UILabel()
+    private let listCountLabel = UILabel()
     
     override func configureHierarchy() {
         contentView.addSubview(imageView)
@@ -20,7 +20,7 @@ final class MainCollectionView: BaseCollectionViewCell {
         contentView.addSubview(listCountLabel)
     }
     
-    override func configureLayout() {
+    override  func configureLayout() {
         imageView.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).inset(10)
             make.leading.equalTo(contentView.snp.leading).offset(10)

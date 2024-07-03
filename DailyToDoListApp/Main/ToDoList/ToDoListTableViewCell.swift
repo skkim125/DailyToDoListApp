@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SnapKit
 
-class ToDoListTableViewCell: BaseTableViewCell {
+final class ToDoListTableViewCell: BaseTableViewCell {
     
     private let todoTitleLabel = UILabel()
     private let memoLabel = UILabel()
@@ -24,19 +25,20 @@ class ToDoListTableViewCell: BaseTableViewCell {
     
     override func configureLayout() {
         todoTitleLabel.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(5)
-            make.height.equalTo(40)
+            make.top.equalTo(contentView.safeAreaLayoutGuide).offset(15)
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
+            make.height.equalTo(30)
         }
         
         memoLabel.snp.makeConstraints { make in
             make.top.equalTo(todoTitleLabel.snp.bottom).offset(5)
-            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(5)
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
             make.height.equalTo(20)
         }
         
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(memoLabel.snp.bottom).offset(5)
-            make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(5)
+            make.leading.equalTo(contentView.safeAreaLayoutGuide).offset(10)
             make.height.equalTo(20)
         }
         
@@ -47,11 +49,17 @@ class ToDoListTableViewCell: BaseTableViewCell {
         }
     }
     
+    override func configureView() {
+        todoTitleLabel.font = .systemFont(ofSize: 18)
+        memoLabel.font = .systemFont(ofSize: 16)
+        hashtagLabel.textColor = .systemOrange
+    }
+    
     func configureTableViewCellUI(title: String, memo: String, date: Date, hashtag: String) {
         todoTitleLabel.text = title
         memoLabel.text = memo
-        dateLabel.text = "\(date)"
-        hashtagLabel.text = hashtag
+        dateLabel.text = DateFormatter.customDateFormatter(date: date)
+        hashtagLabel.text = "#" + hashtag
     }
     
 }

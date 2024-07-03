@@ -27,6 +27,9 @@
 		04EBB1C32C352CCD0096F65F /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1C22C352CCD0096F65F /* DividerLine.swift */; };
 		04EBB1C52C3540330096F65F /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1C42C3540330096F65F /* ToDoListViewController.swift */; };
 		04EBB1C82C3541CE0096F65F /* ToDoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1C72C3541CE0096F65F /* ToDoListTableViewCell.swift */; };
+		04EBB1CA2C355F160096F65F /* SetToDoContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1C92C355F160096F65F /* SetToDoContentViewController.swift */; };
+		04EBB1CC2C359E5C0096F65F /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1CB2C359E5C0096F65F /* Extension.swift */; };
+		04EBB1CE2C35A30F0096F65F /* SetHashTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1CD2C35A30F0096F65F /* SetHashTagViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,9 @@
 		04EBB1C22C352CCD0096F65F /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
 		04EBB1C42C3540330096F65F /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		04EBB1C72C3541CE0096F65F /* ToDoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTableViewCell.swift; sourceTree = "<group>"; };
+		04EBB1C92C355F160096F65F /* SetToDoContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetToDoContentViewController.swift; sourceTree = "<group>"; };
+		04EBB1CB2C359E5C0096F65F /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		04EBB1CD2C35A30F0096F65F /* SetHashTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHashTagViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +97,7 @@
 				04E888CB2C340097000A3FA1 /* Main */,
 				04E888C12C33EC4E000A3FA1 /* ToDo.swift */,
 				04E888D12C3401AF000A3FA1 /* Enum.swift */,
+				04EBB1CB2C359E5C0096F65F /* Extension.swift */,
 				04E888C92C33F7AC000A3FA1 /* IdProtocol.swift */,
 				04E888A62C33DFEB000A3FA1 /* Assets.xcassets */,
 				04E888A82C33DFEB000A3FA1 /* LaunchScreen.storyboard */,
@@ -123,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				04E888C72C33F749000A3FA1 /* AddToDoViewController.swift */,
+				04EBB1CD2C35A30F0096F65F /* SetHashTagViewController.swift */,
+				04EBB1C92C355F160096F65F /* SetToDoContentViewController.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -226,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04EBB1CE2C35A30F0096F65F /* SetHashTagViewController.swift in Sources */,
 				04E888C62C33F096000A3FA1 /* MainCollectionView.swift in Sources */,
 				04EBB1C52C3540330096F65F /* ToDoListViewController.swift in Sources */,
 				04E888A22C33DFEA000A3FA1 /* MainViewController.swift in Sources */,
@@ -236,9 +246,11 @@
 				04EBB1C82C3541CE0096F65F /* ToDoListTableViewCell.swift in Sources */,
 				04E888C82C33F749000A3FA1 /* AddToDoViewController.swift in Sources */,
 				04E888C22C33EC4E000A3FA1 /* ToDo.swift in Sources */,
+				04EBB1CC2C359E5C0096F65F /* Extension.swift in Sources */,
 				04E888BF2C33E6E0000A3FA1 /* BaseCell.swift in Sources */,
 				04E888A02C33DFEA000A3FA1 /* SceneDelegate.swift in Sources */,
 				04EBB1BE2C351EFD0096F65F /* ToDoDetailViewController.swift in Sources */,
+				04EBB1CA2C355F160096F65F /* SetToDoContentViewController.swift in Sources */,
 				04EBB1C12C3527AD0096F65F /* ToDoElementButton.swift in Sources */,
 				04EBB1C32C352CCD0096F65F /* DividerLine.swift in Sources */,
 			);

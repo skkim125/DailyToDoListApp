@@ -9,22 +9,22 @@ import UIKit
 import RealmSwift
 
 enum TodoContents: String, CaseIterable {
-    case memos = "메모"
+    case memos
     case deadline = "마감일"
-    case tag = "태그"
+    case hashTag = "태그"
     case isImortant = "우선순위"
     case addImage = "이미지 추가"
     
     var buttonTag: Int {
         switch self {
         case .deadline:
-            return 0
-        case .tag:
             return 1
-        case .isImortant:
+        case .hashTag:
             return 2
-        case .addImage:
+        case .isImortant:
             return 3
+        case .addImage:
+            return 4
         default:
             return -1
         }

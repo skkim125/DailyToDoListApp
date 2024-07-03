@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class ToDoElementButton: UIButton {
     let todoButtonLabel = UILabel()
     let goNextViewImageView = UIImageView()
+    let todoDataLabel = UILabel()
     
     init(_ element: TodoContents) {
         super.init(frame: .zero)
@@ -37,6 +39,7 @@ class ToDoElementButton: UIButton {
     private func configureHierarchy() {
         addSubview(todoButtonLabel)
         addSubview(goNextViewImageView)
+        addSubview(todoDataLabel)
     }
     
     private func configureLayout() {
@@ -46,14 +49,24 @@ class ToDoElementButton: UIButton {
         }
         
         goNextViewImageView.snp.makeConstraints { make in
-            make.trailing.equalTo(self.snp.trailing).inset(15)
+            make.trailing.equalTo(self.snp.trailing).inset(10)
             make.centerY.equalTo(self)
             make.size.equalTo(20)
+        }
+        
+        todoDataLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(goNextViewImageView.snp.leading).inset(-5)
+            make.leading.equalTo(self.snp.centerX)
+            make.centerY.equalTo(goNextViewImageView.snp.centerY)
+            make.height.equalTo(25)
         }
     }
     
     private func configureSubView() {
         todoButtonLabel.textColor = .white
+        
+        todoDataLabel.textColor = .lightGray
+        todoDataLabel.textAlignment = .right
         
         goNextViewImageView.image = UIImage(systemName: "chevron.forward")
         goNextViewImageView.tintColor = .lightGray

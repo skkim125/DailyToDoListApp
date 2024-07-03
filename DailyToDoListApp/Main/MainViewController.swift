@@ -39,7 +39,7 @@ final class MainViewController: BaseViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(sortButtonClicked))
     }
     
-    @objc func sortButtonClicked() {
+    @objc private func sortButtonClicked() {
 //        navigationItem.rightBarButtonItem
     }
     
@@ -91,7 +91,7 @@ final class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        collectionView.reloadData()
+        print(realm.configuration.fileURL)
     }
 }
 
@@ -120,6 +120,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let vc = ToDoListViewController()
         
         vc.list = data.list
+        vc.configureNavigationBar(sortType: data)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

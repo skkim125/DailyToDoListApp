@@ -9,14 +9,21 @@ import UIKit
 import RealmSwift
 import SnapKit
 
+protocol ToDoContentsDelegate {
+    func sendHashTag(hashtag: String)
+    func sendDeadline()
+    func sendIsImportant()
+    func sendImage()
+}
+
 final class AddToDoViewController: BaseViewController {
-    private lazy var elementStackView = UIStackView(arrangedSubviews: [contentsStackView, deadlineButton, tagButton, isImportantButton, addImageButton])
+    private lazy var elementStackView = UIStackView(arrangedSubviews: [contentsStackView, deadlineButton, hashTagButton, isImportantButton, addImageButton])
     private lazy var contentsStackView = UIStackView(arrangedSubviews: [titleTextField, divider, memoTextView])
     private let titleTextField = UITextField()
     private let divider = DividerLine()
     private let memoTextView = UITextView()
     private let deadlineButton = ToDoElementButton(TodoContents.deadline)
-    private let tagButton = ToDoElementButton(TodoContents.tag)
+    private let hashTagButton = ToDoElementButton(TodoContents.hashTag)
     private let isImportantButton = ToDoElementButton(TodoContents.isImortant)
     private let addImageButton = ToDoElementButton(TodoContents.addImage)
     
@@ -38,7 +45,7 @@ final class AddToDoViewController: BaseViewController {
     @objc private func addButtonClicked() {
         try! realm.write {
             if let titleText = titleTextField.text {
-                let todo = Todo(title: titleText, memo: memoTextView.text, hashTag: "테스트", date: Date(), deadline: Date(), isImportant: false, image: "테스트")
+                let todo = Todo(title: titleText, memo: memoTextView.text, hashTag: String.removeHash( hashTagButton.todoDataLabel.text!), date: Date(), deadline: Date(), isImportant: 0, image: "테스트")
                 
                 realm.add(todo)
                 sendData?()
@@ -48,7 +55,7 @@ final class AddToDoViewController: BaseViewController {
         dismiss(animated: true)
     }
     
-    func isSaveButtonEnable() {
+    private func isSaveButtonEnable() {
         
         if let title = titleTextField.text {
             if title.trimmingCharacters(in: .whitespaces).isEmpty {
@@ -95,7 +102,7 @@ final class AddToDoViewController: BaseViewController {
             make.height.equalTo(50)
         }
         
-        tagButton.snp.makeConstraints { make in
+        hashTagButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(50)
         }
@@ -129,28 +136,37 @@ final class AddToDoViewController: BaseViewController {
         elementStackView.alignment = .center
         
         buttonAddTarget(deadlineButton, self, action: #selector(todoClicked(_:)))
-        buttonAddTarget(tagButton, self, action: #selector(todoClicked(_:)))
+        buttonAddTarget(hashTagButton, self, action: #selector(todoClicked(_:)))
         buttonAddTarget(isImportantButton, self, action: #selector(todoClicked(_:)))
         buttonAddTarget(addImageButton, self, action: #selector(todoClicked(_:)))
     }
     
     @objc func todoClicked(_ sender: UIButton) {
-        
-        switch sender.tag {
-        case 0:
-            let vc = UIViewController()
+        let data = TodoContents.allCases[sender.tag]
+        switch data {
+            
+        case .deadline:
+            let vc = SetToDoContentViewController()
             navigationController?.pushViewController(vc, animated: true)
-        case 1:
-            let vc = UIViewController()
+        case .hashTag:
+            let vc = SetHashTagViewController()
+            vc.beforeVC = self
+            if let text = hashTagButton.todoDataLabel.text, !text.isEmpty {
+                var t = text
+                t.removeFirst()
+                vc.hashTagTextField.text = t
+                vc.hashTagLabel.text = hashTagButton.todoDataLabel.text
+            }
             navigationController?.pushViewController(vc, animated: true)
-        case 2:
-            let vc = UIViewController()
+        case .isImortant:
+            let vc = SetToDoContentViewController()
             navigationController?.pushViewController(vc, animated: true)
-        case 3:
-            let vc = UIViewController()
+        case .addImage:
+            let vc = SetToDoContentViewController()
             navigationController?.pushViewController(vc, animated: true)
         default:
-            return
+            let vc = SetToDoContentViewController()
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -162,5 +178,24 @@ final class AddToDoViewController: BaseViewController {
 extension AddToDoViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         isSaveButtonEnable()
+    }
+}
+
+extension AddToDoViewController: ToDoContentsDelegate {
+    
+    func sendHashTag(hashtag: String) {
+        hashTagButton.todoDataLabel.text = "#" + hashtag
+    }
+    
+    func sendDeadline() {
+        print(#function)
+    }
+    
+    func sendIsImportant() {
+        print(#function)
+    }
+    
+    func sendImage() {
+        print(#function)
     }
 }

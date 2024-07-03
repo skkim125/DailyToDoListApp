@@ -6,7 +6,8 @@
 //
 
 import UIKit
+import SnapKit
 
-class ToDoDetailViewController: BaseViewController {
+final class ToDoDetailViewController: BaseViewController {
     
 }

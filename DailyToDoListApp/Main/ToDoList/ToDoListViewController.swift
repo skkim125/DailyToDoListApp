@@ -7,10 +7,15 @@
 
 import UIKit
 import RealmSwift
+import SnapKit
 
-class ToDoListViewController: BaseViewController {
-    let toDoListTableView = UITableView()
+final class ToDoListViewController: BaseViewController {
+    private let toDoListTableView = UITableView()
     var list: Results<Todo>!
+    
+    override func configureNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
+    }
     
     override func configureHierarchy() {
         view.addSubview(toDoListTableView)
@@ -26,6 +31,11 @@ class ToDoListViewController: BaseViewController {
         toDoListTableView.delegate = self
         toDoListTableView.dataSource = self
         toDoListTableView.register(ToDoListTableViewCell.self, forCellReuseIdentifier: ToDoListTableViewCell.id)
+        toDoListTableView.rowHeight = 120
+    }
+    
+    func configureNavigationBar(sortType: SortType) {
+        navigationItem.title = sortType.rawValue
     }
 }
 
