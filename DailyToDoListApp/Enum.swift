@@ -43,18 +43,18 @@ enum SortType: String, CaseIterable {
     case isFlaged = "깃발 표시"
     case isDone = "완료됨"
     
-    var image: UIImage {
+    var image: String {
         switch self {
         case .today:
-            return UIImage(systemName: "bag.circle.fill")!
+            return "bag.circle.fill"
         case .willDo:
-            return UIImage(systemName: "calendar.circle.fill")!
+            return "calendar.circle.fill"
         case .all:
-            return UIImage(systemName: "tray.circle.fill")!
+            return "tray.circle.fill"
         case .isFlaged:
-            return UIImage(systemName: "flag.circle.fill")!
+            return "flag.circle.fill"
         case .isDone:
-            return UIImage(systemName: "checkmark.circle.fill")!
+            return "checkmark.circle.fill"
         }
     }
     
@@ -73,22 +73,4 @@ enum SortType: String, CaseIterable {
         }
     }
     
-    var list: Results<Todo> {
-        let realm = try! Realm()
-        return try! realm.write {
-            var list = realm.objects(Todo.self)
-            switch self {
-            case .all:
-                return list
-            case .today:
-                return list.where { $0.deadline == Date()}
-            case .willDo:
-                return list.where { $0.deadline > Date()}
-            case .isFlaged:
-                return list.where { $0.isFlaged }
-            case .isDone:
-                return list.where { $0.isEnd }
-            }
-        }
-    }
 }

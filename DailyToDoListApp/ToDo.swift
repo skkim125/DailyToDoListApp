@@ -16,11 +16,10 @@ class Todo: Object {
     @Persisted var date: Date
     @Persisted(indexed: true) var deadline: Date
     @Persisted(indexed: true) var isImportant: Int
-    @Persisted var image: String?
     @Persisted var isEnd: Bool
     @Persisted var isFlaged: Bool
     
-    convenience init(title: String, memo: String?, hashTag: String?, date: Date, deadline: Date, isImportant: Int, image: String?) {
+    convenience init(title: String, memo: String?, hashTag: String?, date: Date, deadline: Date, isImportant: Int) {
         self.init()
         self.title = title
         self.memo = memo
@@ -28,7 +27,6 @@ class Todo: Object {
         self.date = date
         self.deadline = deadline
         self.isImportant = isImportant
-        self.image = image
         self.isEnd = false
         self.isFlaged = false
     }

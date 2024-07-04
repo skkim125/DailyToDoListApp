@@ -11,7 +11,7 @@ import SnapKit
 
 protocol ToDoContentsDelegate {
     func sendHashTag(hashtag: String)
-    func sendDeadline()
+    func sendDeadline(date: Date)
     func sendIsImportant()
     func sendImage()
 }
@@ -30,6 +30,11 @@ final class AddToDoViewController: BaseViewController {
     private let realm = try! Realm()
     
     var sendData: (() -> Void)?
+    var titleText: String?
+    var memo: String?
+    var hashtag: String?
+    var deadline: Date?
+    var isImportant: Int?
     
     override func configureNavigationBar() {
         navigationItem.title = "새로운 할 일"
@@ -44,8 +49,9 @@ final class AddToDoViewController: BaseViewController {
     
     @objc private func addButtonClicked() {
         try! realm.write {
-            if let titleText = titleTextField.text {
-                let todo = Todo(title: titleText, memo: memoTextView.text, hashTag: String.removeHash( hashTagButton.todoDataLabel.text!), date: Date(), deadline: Date(), isImportant: 0, image: "테스트")
+            if let title = titleText {
+                memo = memoTextView.text
+                let todo = Todo(title: title, memo: memo ?? nil, hashTag: hashtag ?? "", date: Date(), deadline: deadline ?? Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())), isImportant: isImportant ?? 0)
                 
                 realm.add(todo)
                 sendData?()
@@ -53,17 +59,6 @@ final class AddToDoViewController: BaseViewController {
         }
 
         dismiss(animated: true)
-    }
-    
-    private func isSaveButtonEnable() {
-        
-        if let title = titleTextField.text {
-            if title.trimmingCharacters(in: .whitespaces).isEmpty {
-                navigationItem.rightBarButtonItem?.isEnabled = false
-            } else {
-                navigationItem.rightBarButtonItem?.isEnabled = true
-            }
-        }
     }
     
     override func configureHierarchy() {
@@ -77,7 +72,7 @@ final class AddToDoViewController: BaseViewController {
         }
         
         contentsStackView.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(20)
+            make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(15)
             make.height.equalTo(140)
         }
         
@@ -98,22 +93,22 @@ final class AddToDoViewController: BaseViewController {
         }
         
         deadlineButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(elementStackView.snp.horizontalEdges).inset(20)
+            make.horizontalEdges.equalTo(elementStackView.snp.horizontalEdges).inset(15)
             make.height.equalTo(50)
         }
         
         hashTagButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(20)
+            make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(15)
             make.height.equalTo(50)
         }
         
         isImportantButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(20)
+            make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(15)
             make.height.equalTo(50)
         }
         
         addImageButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(20)
+            make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(15)
             make.height.equalTo(50)
         }
     }
@@ -146,27 +141,38 @@ final class AddToDoViewController: BaseViewController {
         switch data {
             
         case .deadline:
-            let vc = SetToDoContentViewController()
+            let vc = SetDeadLineVIewController()
+            vc.beforeView = self
+            
+            if let deadline = self.deadline {
+                vc.datePicker.date = deadline
+                
+                let formatDateStr = DateFormatter.customDateFormatter(date: deadline)
+                vc.deadlineLabel.text = formatDateStr
+            }
             navigationController?.pushViewController(vc, animated: true)
+            
         case .hashTag:
             let vc = SetHashTagViewController()
             vc.beforeVC = self
-            if let text = hashTagButton.todoDataLabel.text, !text.isEmpty {
-                var t = text
-                t.removeFirst()
-                vc.hashTagTextField.text = t
+            if let text = hashtag {
+                vc.hashTagTextField.text = text
                 vc.hashTagLabel.text = hashTagButton.todoDataLabel.text
             }
             navigationController?.pushViewController(vc, animated: true)
+            
         case .isImortant:
             let vc = SetToDoContentViewController()
             navigationController?.pushViewController(vc, animated: true)
+            
         case .addImage:
             let vc = SetToDoContentViewController()
             navigationController?.pushViewController(vc, animated: true)
+            
         default:
-            let vc = SetToDoContentViewController()
+            let vc = UIViewController()
             navigationController?.pushViewController(vc, animated: true)
+            
         }
     }
     
@@ -177,18 +183,29 @@ final class AddToDoViewController: BaseViewController {
 
 extension AddToDoViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        isSaveButtonEnable()
+        
+        if let title = textField.text {
+            if title.trimmingCharacters(in: .whitespaces).isEmpty {
+                navigationItem.rightBarButtonItem?.isEnabled = false
+            } else {
+                titleText = title
+                navigationItem.rightBarButtonItem?.isEnabled = true
+            }
+        }
     }
 }
 
 extension AddToDoViewController: ToDoContentsDelegate {
     
     func sendHashTag(hashtag: String) {
-        hashTagButton.todoDataLabel.text = "#" + hashtag
+        self.hashtag = hashtag
+        hashTagButton.todoDataLabel.text = hashtag.isEmpty ? nil : "#" + hashtag
     }
     
-    func sendDeadline() {
-        print(#function)
+    func sendDeadline(date: Date) {
+        self.deadline = date
+        let formatDateStr = DateFormatter.customDateFormatter(date: date)
+        deadlineButton.todoDataLabel.text = formatDateStr
     }
     
     func sendIsImportant() {

@@ -11,11 +11,7 @@ import SnapKit
 
 final class ToDoListViewController: BaseViewController {
     private let toDoListTableView = UITableView()
-    var list: Results<Todo>!
-    
-    override func configureNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .never
-    }
+    private var list: Results<Todo>?
     
     override func configureHierarchy() {
         view.addSubview(toDoListTableView)
@@ -37,18 +33,23 @@ final class ToDoListViewController: BaseViewController {
     func configureNavigationBar(sortType: SortType) {
         navigationItem.title = sortType.rawValue
     }
+    
+    func configureSetList(list: Results<Todo>) {
+        self.list = list
+    }
 }
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return list!.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ToDoListTableViewCell.id, for: indexPath) as! ToDoListTableViewCell
-        let data = list[indexPath.row]
+        let data = list![indexPath.row]
+        
         cell.backgroundColor = .gray
-        cell.configureTableViewCellUI(title: data.title, memo: data.memo ?? "", date: data.date, hashtag: data.hashTag ?? "")
+        cell.configureTableViewCellUI(title: data.title, memo: data.memo ?? "", date: data.deadline, hashtag: data.hashTag ?? "")
 
         return cell
     }

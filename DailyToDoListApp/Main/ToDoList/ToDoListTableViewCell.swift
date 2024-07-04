@@ -59,7 +59,6 @@ final class ToDoListTableViewCell: BaseTableViewCell {
         todoTitleLabel.text = title
         memoLabel.text = memo
         dateLabel.text = DateFormatter.customDateFormatter(date: date)
-        hashtagLabel.text = "#" + hashtag
+        hashtagLabel.text = hashtag.isEmpty ? nil : "#" + hashtag
     }
-    
 }

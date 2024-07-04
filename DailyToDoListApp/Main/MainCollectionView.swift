@@ -41,7 +41,7 @@ final class MainCollectionView: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        contentView.backgroundColor = .darkGray
+        contentView.backgroundColor = .systemGray5
         contentView.layer.cornerRadius = 12
         
         imageView.contentMode = .scaleAspectFit
@@ -53,8 +53,11 @@ final class MainCollectionView: BaseCollectionViewCell {
     }
     
     func configureTableViewCellUI(data: SortType, count: Int) {
-        imageView.image = data.image
-        imageView.tintColor = data.imageTintColor
+        let config = UIImage.SymbolConfiguration(paletteColors: [.white, data.imageTintColor])
+        let image = UIImage(systemName: data.image, withConfiguration: config)
+        
+        imageView.image = image
+        
         collectionTitleLabel.text = data.rawValue
         listCountLabel.text = "\(count)"
     }

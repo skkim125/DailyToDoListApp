@@ -104,7 +104,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionView.id, for: indexPath) as? MainCollectionView {
             let data = SortType.allCases[indexPath.row]
             
-            cell.configureTableViewCellUI(data: data, count: data.list.count)
+            cell.configureTableViewCellUI(data: data, count: loadList(data: data, list: list).count)
             
             return cell
         } else {
@@ -116,11 +116,28 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let data = SortType.allCases[indexPath.row]
-        
         let vc = ToDoListViewController()
         
-        vc.list = data.list
+        vc.configureSetList(list: loadList(data: data, list: list))
         vc.configureNavigationBar(sortType: data)
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func loadList(data: SortType, list: Results<Todo>) -> Results<Todo>! {
+        
+        switch data {
+        case .all:
+            return list
+        case .today:
+            let filter = list.where { $0.deadline >= Calendar.current.startOfDay(for: Date()) && $0.deadline <= Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())) }
+            return filter
+        case .willDo:
+            let filter = list.where { $0.deadline > Date(timeInterval: 86400, since: Calendar.current.startOfDay(for: Date())) }
+            return filter
+        case .isFlaged:
+            return list.where { $0.isFlaged }
+        case .isDone:
+            return list.where { $0.isEnd }
+        }
     }
 }
