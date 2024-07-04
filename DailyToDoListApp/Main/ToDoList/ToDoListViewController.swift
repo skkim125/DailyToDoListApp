@@ -12,6 +12,16 @@ import SnapKit
 final class ToDoListViewController: BaseViewController {
     private let toDoListTableView = UITableView()
     private var list: Results<Todo>?
+    var beforeVC: MainViewController?
+    
+    
+    override func configureNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(sortButtonClicked))
+    }
+    
+    @objc private func sortButtonClicked() {
+//        navigationItem.rightBarButtonItem
+    }
     
     override func configureHierarchy() {
         view.addSubview(toDoListTableView)
@@ -27,7 +37,7 @@ final class ToDoListViewController: BaseViewController {
         toDoListTableView.delegate = self
         toDoListTableView.dataSource = self
         toDoListTableView.register(ToDoListTableViewCell.self, forCellReuseIdentifier: ToDoListTableViewCell.id)
-        toDoListTableView.rowHeight = 120
+        toDoListTableView.rowHeight = 100
     }
     
     func configureNavigationBar(sortType: SortType) {
@@ -48,9 +58,74 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ToDoListTableViewCell.id, for: indexPath) as! ToDoListTableViewCell
         let data = list![indexPath.row]
         
-        cell.backgroundColor = .gray
-        cell.configureTableViewCellUI(title: data.title, memo: data.memo ?? "", date: data.deadline, hashtag: data.hashTag ?? "")
-
+        cell.configureTableViewCellUI(data: data)
+        cell.isDoneClosure = { before in
+            var after = before
+            after.toggle()
+            
+            let realm = try! Realm()
+            print(data.id)
+            do {
+                try realm.write {
+                    realm.create(Todo.self,
+                                 value: ["id": data.id ,
+                                        "isDone": after],
+                                 update: .modified)
+                }
+            } catch {
+                print("Error")
+            }
+            
+            tableView.reloadData()
+            if let vc = self.beforeVC {
+                vc.collectionView.reloadData()
+            }
+            return after
+        }
+        cell.separatorInset = .init(top: 0, left: 50, bottom: 0, right: 0)
+        cell.selectionStyle = .none
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let data = list![indexPath.row]
+        var flaged = data.isFlaged
+        flaged.toggle()
+        
+        
+        let edit = UIContextualAction(style: .normal, title: data.isFlaged ? "깃발 해제" : "깃발 표시") { (action, view, success: @escaping (Bool) -> Void) in
+            
+            let realm = try! Realm()
+            do {
+                try realm.write {
+                    realm.create(Todo.self,
+                                 value: ["id": data.id ,
+                                        "isFlaged": flaged],
+                                 update: .modified)
+                }
+            } catch {
+                print("Error")
+            }
+            
+            if let vc = self.beforeVC {
+                vc.collectionView.reloadData()
+                tableView.reloadData()
+            }
+            success(true)
+        }
+        
+        edit.backgroundColor = .systemOrange
+        edit.image = UIImage(systemName: data.isFlaged ? "flag.slash.fill" : "flag.fill")
+        
+        let delete = UIContextualAction(style: .normal, title: "삭제") { (action, view, success: @escaping (Bool) -> Void) in
+            success(true)
+        }
+        delete.backgroundColor = .systemRed
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        //actions배열 인덱스 0이 왼쪽에 붙어서 나옴
+        return UISwipeActionsConfiguration(actions:[delete, edit])
     }
 }

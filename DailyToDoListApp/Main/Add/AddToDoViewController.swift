@@ -162,11 +162,11 @@ final class AddToDoViewController: BaseViewController {
             navigationController?.pushViewController(vc, animated: true)
             
         case .isImortant:
-            let vc = SetToDoContentViewController()
+            let vc = SetIsImportantViewController()
             navigationController?.pushViewController(vc, animated: true)
             
         case .addImage:
-            let vc = SetToDoContentViewController()
+            let vc = SetImageViewController()
             navigationController?.pushViewController(vc, animated: true)
             
         default:

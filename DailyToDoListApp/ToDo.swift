@@ -16,7 +16,7 @@ class Todo: Object {
     @Persisted var date: Date
     @Persisted(indexed: true) var deadline: Date
     @Persisted(indexed: true) var isImportant: Int
-    @Persisted var isEnd: Bool
+    @Persisted var isDone: Bool
     @Persisted var isFlaged: Bool
     
     convenience init(title: String, memo: String?, hashTag: String?, date: Date, deadline: Date, isImportant: Int) {
@@ -27,7 +27,7 @@ class Todo: Object {
         self.date = date
         self.deadline = deadline
         self.isImportant = isImportant
-        self.isEnd = false
+        self.isDone = false
         self.isFlaged = false
     }
 }

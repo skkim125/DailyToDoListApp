@@ -11,7 +11,7 @@ import RealmSwift
 
 final class MainViewController: BaseViewController {
     
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
     
     private func configureCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
@@ -36,11 +36,6 @@ final class MainViewController: BaseViewController {
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.title = "오늘 할 일"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(sortButtonClicked))
-    }
-    
-    @objc private func sortButtonClicked() {
-//        navigationItem.rightBarButtonItem
     }
     
     override func configureHierarchy() {
@@ -68,11 +63,19 @@ final class MainViewController: BaseViewController {
         collectionView.register(MainCollectionView.self, forCellWithReuseIdentifier: MainCollectionView.id)
         collectionView.backgroundColor = .black
         
-        addTodoButton.setTitle("새로운 할 일", for: .normal)
-        addTodoButton.setTitleColor(.systemBlue, for: .normal)
-        addTodoButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
-        addTodoButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-        addTodoButton.imageView?.contentMode = .scaleAspectFit
+        var configuration = UIButton.Configuration.plain()
+        
+        var title = AttributedString("새로운 할 일")
+        title.font = .boldSystemFont(ofSize: 20)
+        
+        configuration.attributedTitle = title
+        configuration.image = UIImage(systemName: "plus.circle.fill")!.applyingSymbolConfiguration(.init(pointSize: 20, weight: .bold))
+        configuration.imagePlacement = .leading
+        configuration.imagePadding = 10
+        configuration.baseForegroundColor = .systemBlue
+        
+        addTodoButton.configuration = configuration
+        
         addTodoButton.addTarget(self, action: #selector(addTodoButtonClicked), for: .touchUpInside)
         
         list = realm.objects(Todo.self)
@@ -120,6 +123,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         vc.configureSetList(list: loadList(data: data, list: list))
         vc.configureNavigationBar(sortType: data)
+        vc.beforeVC = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -137,7 +141,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .isFlaged:
             return list.where { $0.isFlaged }
         case .isDone:
-            return list.where { $0.isEnd }
+            return list.where { $0.isDone }
         }
     }
 }
