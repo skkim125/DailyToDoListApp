@@ -63,7 +63,8 @@ class ToDoElementButton: UIButton {
     }
     
     private func configureSubView() {
-        todoButtonLabel.textColor = .white
+        todoButtonLabel.textColor = .white.withAlphaComponent(0.7)
+        todoButtonLabel.font = .systemFont(ofSize: 15)
         
         todoDataLabel.textColor = .lightGray
         todoDataLabel.textAlignment = .right

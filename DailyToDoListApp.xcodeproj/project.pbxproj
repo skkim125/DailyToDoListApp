@@ -10,7 +10,8 @@
 		04C264E52C368BD9009EDDB9 /* SetDeadLineVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E42C368BD9009EDDB9 /* SetDeadLineVIewController.swift */; };
 		04C264E72C3695AE009EDDB9 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E62C3695AE009EDDB9 /* CustomDatePicker.swift */; };
 		04C264E92C36D192009EDDB9 /* SetIsImportantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E82C36D192009EDDB9 /* SetIsImportantViewController.swift */; };
-		04C264EB2C36D1A8009EDDB9 /* SetImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264EA2C36D1A8009EDDB9 /* SetImageViewController.swift */; };
+		04C264ED2C37CA7F009EDDB9 /* SetImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264EC2C37CA7F009EDDB9 /* SetImageViewController.swift */; };
+		04C264EE2C37DD02009EDDB9 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 04E888BA2C33E68A000A3FA1 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		04E8889E2C33DFEA000A3FA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8889D2C33DFEA000A3FA1 /* AppDelegate.swift */; };
 		04E888A02C33DFEA000A3FA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8889F2C33DFEA000A3FA1 /* SceneDelegate.swift */; };
 		04E888A22C33DFEA000A3FA1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E888A12C33DFEA000A3FA1 /* MainViewController.swift */; };
@@ -35,11 +36,25 @@
 		04EBB1CE2C35A30F0096F65F /* SetHashTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1CD2C35A30F0096F65F /* SetHashTagViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		04C264EF2C37DD02009EDDB9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				04C264EE2C37DD02009EDDB9 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		04C264E42C368BD9009EDDB9 /* SetDeadLineVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDeadLineVIewController.swift; sourceTree = "<group>"; };
 		04C264E62C3695AE009EDDB9 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		04C264E82C36D192009EDDB9 /* SetIsImportantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetIsImportantViewController.swift; sourceTree = "<group>"; };
-		04C264EA2C36D1A8009EDDB9 /* SetImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImageViewController.swift; sourceTree = "<group>"; };
+		04C264EC2C37CA7F009EDDB9 /* SetImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImageViewController.swift; sourceTree = "<group>"; };
 		04E8889A2C33DFEA000A3FA1 /* DailyToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E8889D2C33DFEA000A3FA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04E8889F2C33DFEA000A3FA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,8 +153,8 @@
 				04E888C72C33F749000A3FA1 /* AddToDoViewController.swift */,
 				04C264E42C368BD9009EDDB9 /* SetDeadLineVIewController.swift */,
 				04EBB1CD2C35A30F0096F65F /* SetHashTagViewController.swift */,
+				04C264EC2C37CA7F009EDDB9 /* SetImageViewController.swift */,
 				04C264E82C36D192009EDDB9 /* SetIsImportantViewController.swift */,
-				04C264EA2C36D1A8009EDDB9 /* SetImageViewController.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -174,6 +189,7 @@
 				04E888962C33DFEA000A3FA1 /* Sources */,
 				04E888972C33DFEA000A3FA1 /* Frameworks */,
 				04E888982C33DFEA000A3FA1 /* Resources */,
+				04C264EF2C37DD02009EDDB9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -249,13 +265,13 @@
 				04E888C62C33F096000A3FA1 /* MainCollectionView.swift in Sources */,
 				04EBB1C52C3540330096F65F /* ToDoListViewController.swift in Sources */,
 				04E888A22C33DFEA000A3FA1 /* MainViewController.swift in Sources */,
+				04C264ED2C37CA7F009EDDB9 /* SetImageViewController.swift in Sources */,
 				04E888D22C3401AF000A3FA1 /* Enum.swift in Sources */,
 				04E888BD2C33E6D6000A3FA1 /* BaseViewController.swift in Sources */,
 				04E8889E2C33DFEA000A3FA1 /* AppDelegate.swift in Sources */,
 				04C264E92C36D192009EDDB9 /* SetIsImportantViewController.swift in Sources */,
 				04E888CA2C33F7AC000A3FA1 /* IdProtocol.swift in Sources */,
 				04EBB1C82C3541CE0096F65F /* ToDoListTableViewCell.swift in Sources */,
-				04C264EB2C36D1A8009EDDB9 /* SetImageViewController.swift in Sources */,
 				04E888C82C33F749000A3FA1 /* AddToDoViewController.swift in Sources */,
 				04E888C22C33EC4E000A3FA1 /* ToDo.swift in Sources */,
 				04EBB1CC2C359E5C0096F65F /* Extension.swift in Sources */,
@@ -408,6 +424,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailyToDoListApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -439,6 +456,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailyToDoListApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

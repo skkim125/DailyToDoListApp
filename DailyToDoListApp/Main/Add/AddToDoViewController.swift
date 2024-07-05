@@ -13,7 +13,7 @@ protocol ToDoContentsDelegate {
     func sendHashTag(hashtag: String)
     func sendDeadline(date: Date)
     func sendIsImportant()
-    func sendImage()
+    func sendImage(image: UIImage?)
 }
 
 final class AddToDoViewController: BaseViewController {
@@ -30,11 +30,13 @@ final class AddToDoViewController: BaseViewController {
     private let realm = try! Realm()
     
     var sendData: (() -> Void)?
-    var titleText: String?
-    var memo: String?
-    var hashtag: String?
-    var deadline: Date?
-    var isImportant: Int?
+    
+    private var image: UIImage?
+    private var titleText: String?
+    private var memo: String?
+    private var hashtag: String?
+    private var deadline: Date?
+    private var isImportant: Int?
     
     override func configureNavigationBar() {
         navigationItem.title = "새로운 할 일"
@@ -66,6 +68,12 @@ final class AddToDoViewController: BaseViewController {
         view.addSubview(elementStackView)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     override func configureLayout() {
         elementStackView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
@@ -94,22 +102,22 @@ final class AddToDoViewController: BaseViewController {
         
         deadlineButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(elementStackView.snp.horizontalEdges).inset(15)
-            make.height.equalTo(50)
+            make.height.equalTo(45)
         }
         
         hashTagButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(15)
-            make.height.equalTo(50)
+            make.height.equalTo(45)
         }
         
         isImportantButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(15)
-            make.height.equalTo(50)
+            make.height.equalTo(45)
         }
         
         addImageButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(15)
-            make.height.equalTo(50)
+            make.height.equalTo(45)
         }
     }
     
@@ -166,8 +174,9 @@ final class AddToDoViewController: BaseViewController {
             navigationController?.pushViewController(vc, animated: true)
             
         case .addImage:
-            let vc = SetImageViewController()
-            navigationController?.pushViewController(vc, animated: true)
+            let imagePicker = SetImageViewController()
+            imagePicker.beforeVC = self
+            navigationController?.pushViewController(imagePicker, animated: true)
             
         default:
             let vc = UIViewController()
@@ -212,7 +221,9 @@ extension AddToDoViewController: ToDoContentsDelegate {
         print(#function)
     }
     
-    func sendImage() {
-        print(#function)
+    func sendImage(image: UIImage?) {
+        self.image = image
+        
+        addImageButton.todoDataLabel.text = self.image == nil ? nil : "이미지 추가 완료!"
     }
 }
