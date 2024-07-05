@@ -11,7 +11,7 @@ import SnapKit
 
 final class ToDoListViewController: BaseViewController {
     private let toDoListTableView = UITableView()
-    private var list: Results<Todo>?
+    private var list: Results<ToDo>?
     var beforeVC: MainViewController?
     
     
@@ -44,7 +44,7 @@ final class ToDoListViewController: BaseViewController {
         navigationItem.title = sortType.rawValue
     }
     
-    func configureSetList(list: Results<Todo>) {
+    func configureSetList(list: Results<ToDo>) {
         self.list = list
     }
 }
@@ -67,7 +67,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
             print(data.id)
             do {
                 try realm.write {
-                    realm.create(Todo.self,
+                    realm.create(ToDo.self,
                                  value: ["id": data.id ,
                                         "isDone": after],
                                  update: .modified)
@@ -100,7 +100,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
             let realm = try! Realm()
             do {
                 try realm.write {
-                    realm.create(Todo.self,
+                    realm.create(ToDo.self,
                                  value: ["id": data.id ,
                                         "isFlaged": flaged],
                                  update: .modified)
@@ -125,7 +125,6 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         delete.backgroundColor = .systemRed
         delete.image = UIImage(systemName: "trash.fill")
         
-        //actions배열 인덱스 0이 왼쪽에 붙어서 나옴
         return UISwipeActionsConfiguration(actions:[delete, edit])
     }
 }

@@ -53,7 +53,7 @@ final class AddToDoViewController: BaseViewController {
         try! realm.write {
             if let title = titleText {
                 memo = memoTextView.text
-                let todo = Todo(title: title, memo: memo ?? nil, hashTag: hashtag ?? "", date: Date(), deadline: deadline ?? Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())), importantValue: importantValue ?? 1)
+                let todo = ToDo(title: title, memo: memo ?? nil, hashTag: hashtag ?? "", date: Date(), deadline: deadline ?? Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())), importantValue: importantValue ?? 1)
                 
                 realm.add(todo)
                 sendData?()
@@ -144,7 +144,7 @@ final class AddToDoViewController: BaseViewController {
         buttonAddTarget(addImageButton, self, action: #selector(todoClicked(_:)))
     }
     
-    @objc func todoClicked(_ sender: UIButton) {
+    @objc private func todoClicked(_ sender: UIButton) {
         let data = TodoContents.allCases[sender.tag]
         switch data {
             

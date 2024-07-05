@@ -15,8 +15,9 @@ final class ToDoListTableViewCell: BaseTableViewCell {
     private let memoLabel = UILabel()
     private let dateLabel = UILabel()
     private let hashtagLabel = UILabel()
+    private let flagImageView = UIImageView()
     private var isDone: Bool = false
-    private var todo: Todo?
+    private var todo: ToDo?
     var isDoneClosure: ((Bool)->Bool)?
     
     override func configureHierarchy() {
@@ -25,6 +26,7 @@ final class ToDoListTableViewCell: BaseTableViewCell {
         contentView.addSubview(memoLabel)
         contentView.addSubview(dateLabel)
         contentView.addSubview(hashtagLabel)
+        contentView.addSubview(flagImageView)
     }
     
     override func configureLayout() {
@@ -35,10 +37,16 @@ final class ToDoListTableViewCell: BaseTableViewCell {
             make.size.equalTo(30)
         }
         
+        flagImageView.snp.makeConstraints { make in
+            make.top.equalTo(contentView.safeAreaLayoutGuide).offset(10)
+            make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(15)
+            make.size.equalTo(20)
+        }
+        
         todoTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).offset(10)
             make.leading.equalTo(isDoneButton.snp.trailing).offset(15)
-            make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(10)
+            make.trailing.equalTo(flagImageView.snp.leading).inset(10)
             make.height.equalTo(30)
         }
         
@@ -76,7 +84,7 @@ final class ToDoListTableViewCell: BaseTableViewCell {
         isDoneButton.addTarget(self, action: #selector(isDoneButtonClicked), for: .touchUpInside)
     }
     
-    func configureTableViewCellUI(data: Todo) {
+    func configureTableViewCellUI(data: ToDo) {
         todo = data
         todoTitleLabel.attributedText = setToDoTitle(data: data)
         memoLabel.text = data.memo
@@ -86,7 +94,7 @@ final class ToDoListTableViewCell: BaseTableViewCell {
         } else {
             hashtagLabel.text = nil
         }
-        
+        setFlagedImage(isFlaged: data.isFlaged)
         isDone = data.isDone
         setIsDoneImage(isDone: isDone)
     }
@@ -102,7 +110,14 @@ final class ToDoListTableViewCell: BaseTableViewCell {
         isDoneButton.setImage(image, for: .normal)
     }
     
-    private func setToDoTitle(data: Todo) -> NSMutableAttributedString {
+    private func setFlagedImage(isFlaged: Bool) {
+        let flagImage = isFlaged ? "flag.fill" : ""
+        flagImageView.isHidden = !isFlaged
+        flagImageView.tintColor = .systemOrange
+        flagImageView.image = UIImage(systemName: flagImage)
+    }
+    
+    private func setToDoTitle(data: ToDo) -> NSMutableAttributedString {
         var valueStr: String
         
         switch data.importantValue {

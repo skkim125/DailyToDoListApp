@@ -30,7 +30,7 @@ final class MainViewController: BaseViewController {
     private let addTodoButton = UIButton()
     
     private let realm = try! Realm()
-    private var list: Results<Todo>!
+    private var list: Results<ToDo>!
     
     override func configureNavigationBar() {
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -78,7 +78,7 @@ final class MainViewController: BaseViewController {
         
         addTodoButton.addTarget(self, action: #selector(addTodoButtonClicked), for: .touchUpInside)
         
-        list = realm.objects(Todo.self)
+        list = realm.objects(ToDo.self)
     }
     
     @objc private func addTodoButtonClicked() {
@@ -127,7 +127,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func loadList(data: SortType, list: Results<Todo>) -> Results<Todo>! {
+    func loadList(data: SortType, list: Results<ToDo>) -> Results<ToDo>! {
         
         switch data {
         case .all:

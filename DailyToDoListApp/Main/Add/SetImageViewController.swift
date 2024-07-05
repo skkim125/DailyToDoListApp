@@ -51,7 +51,7 @@ final class SetImageViewController: BaseViewController {
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveImage))
     }
     
-    @objc func saveImage() {
+    @objc private func saveImage() {
         if let vc = beforeVC {
             vc.sendImage(image: self.image)
         }
