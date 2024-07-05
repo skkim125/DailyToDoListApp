@@ -12,19 +12,19 @@ import SnapKit
 protocol ToDoContentsDelegate {
     func sendHashTag(hashtag: String)
     func sendDeadline(date: Date)
-    func sendIsImportant()
+    func sendImportantValue(importantValue: Int)
     func sendImage(image: UIImage?)
 }
 
 final class AddToDoViewController: BaseViewController {
-    private lazy var elementStackView = UIStackView(arrangedSubviews: [contentsStackView, deadlineButton, hashTagButton, isImportantButton, addImageButton])
+    private lazy var elementStackView = UIStackView(arrangedSubviews: [contentsStackView, deadlineButton, hashTagButton, importantValueButton, addImageButton])
     private lazy var contentsStackView = UIStackView(arrangedSubviews: [titleTextField, divider, memoTextView])
     private let titleTextField = UITextField()
     private let divider = DividerLine()
     private let memoTextView = UITextView()
     private let deadlineButton = ToDoElementButton(TodoContents.deadline)
     private let hashTagButton = ToDoElementButton(TodoContents.hashTag)
-    private let isImportantButton = ToDoElementButton(TodoContents.isImortant)
+    private let importantValueButton = ToDoElementButton(TodoContents.isImortant)
     private let addImageButton = ToDoElementButton(TodoContents.addImage)
     
     private let realm = try! Realm()
@@ -36,7 +36,7 @@ final class AddToDoViewController: BaseViewController {
     private var memo: String?
     private var hashtag: String?
     private var deadline: Date?
-    private var isImportant: Int?
+    private var importantValue: Int?
     
     override func configureNavigationBar() {
         navigationItem.title = "새로운 할 일"
@@ -53,7 +53,7 @@ final class AddToDoViewController: BaseViewController {
         try! realm.write {
             if let title = titleText {
                 memo = memoTextView.text
-                let todo = Todo(title: title, memo: memo ?? nil, hashTag: hashtag ?? "", date: Date(), deadline: deadline ?? Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())), isImportant: isImportant ?? 0)
+                let todo = Todo(title: title, memo: memo ?? nil, hashTag: hashtag ?? "", date: Date(), deadline: deadline ?? Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())), importantValue: importantValue ?? 1)
                 
                 realm.add(todo)
                 sendData?()
@@ -110,7 +110,7 @@ final class AddToDoViewController: BaseViewController {
             make.height.equalTo(45)
         }
         
-        isImportantButton.snp.makeConstraints { make in
+        importantValueButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(15)
             make.height.equalTo(45)
         }
@@ -140,7 +140,7 @@ final class AddToDoViewController: BaseViewController {
         
         buttonAddTarget(deadlineButton, self, action: #selector(todoClicked(_:)))
         buttonAddTarget(hashTagButton, self, action: #selector(todoClicked(_:)))
-        buttonAddTarget(isImportantButton, self, action: #selector(todoClicked(_:)))
+        buttonAddTarget(importantValueButton, self, action: #selector(todoClicked(_:)))
         buttonAddTarget(addImageButton, self, action: #selector(todoClicked(_:)))
     }
     
@@ -170,7 +170,11 @@ final class AddToDoViewController: BaseViewController {
             navigationController?.pushViewController(vc, animated: true)
             
         case .isImortant:
-            let vc = SetIsImportantViewController()
+            let vc = SetImportantValueViewController()
+            vc.beforeVC = self
+            if let value = importantValue {
+                vc.importantValue = value
+            }
             navigationController?.pushViewController(vc, animated: true)
             
         case .addImage:
@@ -217,8 +221,10 @@ extension AddToDoViewController: ToDoContentsDelegate {
         deadlineButton.todoDataLabel.text = formatDateStr
     }
     
-    func sendIsImportant() {
-        print(#function)
+    func sendImportantValue(importantValue: Int) {
+        self.importantValue = importantValue
+        print(self.importantValue)
+        importantValueButton.todoDataLabel.text = ImportantVlue.allCases[importantValue].rawValue
     }
     
     func sendImage(image: UIImage?) {

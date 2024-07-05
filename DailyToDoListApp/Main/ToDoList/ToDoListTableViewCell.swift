@@ -78,7 +78,7 @@ final class ToDoListTableViewCell: BaseTableViewCell {
     
     func configureTableViewCellUI(data: Todo) {
         todo = data
-        todoTitleLabel.text = data.title
+        todoTitleLabel.attributedText = setToDoTitle(data: data)
         memoLabel.text = data.memo
         dateLabel.text = DateFormatter.customDateFormatter(date: data.deadline)
         if let hashtag = data.hashTag {
@@ -100,5 +100,27 @@ final class ToDoListTableViewCell: BaseTableViewCell {
         let image = isDone ? UIImage(systemName: "circlebadge.fill")?.applyingSymbolConfiguration(.init(hierarchicalColor: .white)) : UIImage(systemName: "circlebadge")
         
         isDoneButton.setImage(image, for: .normal)
+    }
+    
+    private func setToDoTitle(data: Todo) -> NSMutableAttributedString {
+        var valueStr: String
+        
+        switch data.importantValue {
+        case 0:
+            valueStr = "!"
+        case 1:
+            valueStr = "!!"
+        case 2:
+            valueStr = "!!!"
+        default:
+            valueStr = ""
+        }
+        
+        let fullText = "\(valueStr) \(data.title)"
+        let range = (fullText as NSString).range(of: "\(valueStr)")
+        let attribtuedString = NSMutableAttributedString(string: fullText)
+        attribtuedString.addAttribute(.foregroundColor, value: UIColor.systemBlue, range: range)
+        
+        return attribtuedString
     }
 }

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		04C264E52C368BD9009EDDB9 /* SetDeadLineVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E42C368BD9009EDDB9 /* SetDeadLineVIewController.swift */; };
 		04C264E72C3695AE009EDDB9 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E62C3695AE009EDDB9 /* CustomDatePicker.swift */; };
-		04C264E92C36D192009EDDB9 /* SetIsImportantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E82C36D192009EDDB9 /* SetIsImportantViewController.swift */; };
+		04C264E92C36D192009EDDB9 /* SetImportantValueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E82C36D192009EDDB9 /* SetImportantValueViewController.swift */; };
 		04C264ED2C37CA7F009EDDB9 /* SetImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264EC2C37CA7F009EDDB9 /* SetImageViewController.swift */; };
 		04C264EE2C37DD02009EDDB9 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 04E888BA2C33E68A000A3FA1 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		04E8889E2C33DFEA000A3FA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8889D2C33DFEA000A3FA1 /* AppDelegate.swift */; };
@@ -53,7 +53,7 @@
 /* Begin PBXFileReference section */
 		04C264E42C368BD9009EDDB9 /* SetDeadLineVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDeadLineVIewController.swift; sourceTree = "<group>"; };
 		04C264E62C3695AE009EDDB9 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
-		04C264E82C36D192009EDDB9 /* SetIsImportantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetIsImportantViewController.swift; sourceTree = "<group>"; };
+		04C264E82C36D192009EDDB9 /* SetImportantValueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImportantValueViewController.swift; sourceTree = "<group>"; };
 		04C264EC2C37CA7F009EDDB9 /* SetImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImageViewController.swift; sourceTree = "<group>"; };
 		04E8889A2C33DFEA000A3FA1 /* DailyToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E8889D2C33DFEA000A3FA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,8 +153,8 @@
 				04E888C72C33F749000A3FA1 /* AddToDoViewController.swift */,
 				04C264E42C368BD9009EDDB9 /* SetDeadLineVIewController.swift */,
 				04EBB1CD2C35A30F0096F65F /* SetHashTagViewController.swift */,
+				04C264E82C36D192009EDDB9 /* SetImportantValueViewController.swift */,
 				04C264EC2C37CA7F009EDDB9 /* SetImageViewController.swift */,
-				04C264E82C36D192009EDDB9 /* SetIsImportantViewController.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -269,7 +269,7 @@
 				04E888D22C3401AF000A3FA1 /* Enum.swift in Sources */,
 				04E888BD2C33E6D6000A3FA1 /* BaseViewController.swift in Sources */,
 				04E8889E2C33DFEA000A3FA1 /* AppDelegate.swift in Sources */,
-				04C264E92C36D192009EDDB9 /* SetIsImportantViewController.swift in Sources */,
+				04C264E92C36D192009EDDB9 /* SetImportantValueViewController.swift in Sources */,
 				04E888CA2C33F7AC000A3FA1 /* IdProtocol.swift in Sources */,
 				04EBB1C82C3541CE0096F65F /* ToDoListTableViewCell.swift in Sources */,
 				04E888C82C33F749000A3FA1 /* AddToDoViewController.swift in Sources */,

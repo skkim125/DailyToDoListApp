@@ -8,6 +8,23 @@
 import UIKit
 import RealmSwift
 
+enum ImportantVlue: String, CaseIterable {
+    case low = "낮음"
+    case mid = "보통"
+    case high = "높음"
+    
+    var value: Int {
+        switch self {
+        case .low:
+            return 0
+        case .mid:
+            return 1
+        case .high:
+            return 2
+        }
+    }
+}
+
 enum TodoContents: String, CaseIterable {
     case memos
     case deadline = "마감일"

@@ -15,18 +15,18 @@ class Todo: Object {
     @Persisted var hashTag: String?
     @Persisted var date: Date
     @Persisted(indexed: true) var deadline: Date
-    @Persisted(indexed: true) var isImportant: Int
+    @Persisted(indexed: true) var importantValue: Int
     @Persisted var isDone: Bool
     @Persisted var isFlaged: Bool
     
-    convenience init(title: String, memo: String?, hashTag: String?, date: Date, deadline: Date, isImportant: Int) {
+    convenience init(title: String, memo: String?, hashTag: String?, date: Date, deadline: Date, importantValue: Int) {
         self.init()
         self.title = title
         self.memo = memo
         self.hashTag = hashTag
         self.date = date
         self.deadline = deadline
-        self.isImportant = isImportant
+        self.importantValue = importantValue
         self.isDone = false
         self.isFlaged = false
     }

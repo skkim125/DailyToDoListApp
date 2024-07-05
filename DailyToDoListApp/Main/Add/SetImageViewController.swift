@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SetImageViewController: BaseViewController {
+final class SetImageViewController: BaseViewController {
     private let imagePickerView = UIImagePickerController()
     @objc private let saveButton = UIButton()
     private var image: UIImage?
