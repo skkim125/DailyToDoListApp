@@ -36,6 +36,17 @@ final class MainViewController: BaseViewController {
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.title = "오늘 할 일"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarButtonClicked))
+    }
+    
+    @objc func calendarButtonClicked() {
+        let vc = CalendarViewController()
+        
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        nav.modalTransitionStyle = .flipHorizontal
+        
+        present(nav, animated: true)
     }
     
     override func configureHierarchy() {
