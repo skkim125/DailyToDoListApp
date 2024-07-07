@@ -11,26 +11,13 @@ import RealmSwift
 
 final class MainViewController: BaseViewController {
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
-    
-    private func configureCollectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let cellSpacing: CGFloat = 20
-        let sectionSpacing: CGFloat = 10
-        let width = UIScreen.main.bounds.width - (sectionSpacing*2 + cellSpacing)
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = cellSpacing
-        layout.minimumInteritemSpacing = sectionSpacing
-        layout.itemSize = CGSize(width: width/2, height: width/3.6)
-        layout.sectionInset = .init(top: sectionSpacing, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
-        
-        return layout
-    }
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout.configureCollectionViewLayout())
     
     private let addTodoButton = UIButton(type: .custom)
     
     private let realm = try! Realm()
-    private var list: Results<ToDo>!
+    private let toDoRepository = ToDoRepository()
+    private lazy var list: Results<ToDo> = toDoRepository.loadToDoList()
     
     override func configureNavigationBar() {
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -88,8 +75,6 @@ final class MainViewController: BaseViewController {
         
         addTodoButton.configuration = configuration
         addTodoButton.addTarget(self, action: #selector(addTodoButtonClicked), for: .touchUpInside)
-        
-        list = realm.objects(ToDo.self)
     }
     
     @objc private func addTodoButtonClicked() {

@@ -11,7 +11,8 @@ import SnapKit
 
 final class ToDoListViewController: BaseViewController {
     private let toDoListTableView = UITableView()
-    private var realm = try! Realm()
+    
+    private let toDoRepository = ToDoRepository()
     private var list: Results<ToDo>!
     var beforeVC: MainViewController?
     
@@ -87,18 +88,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
             var after = before
             after.toggle()
             
-            let realm = try! Realm()
-            print(data.id)
-            do {
-                try realm.write {
-                    realm.create(ToDo.self,
-                                 value: ["id": data.id ,
-                                        "isDone": after],
-                                 update: .modified)
-                }
-            } catch {
-                print("Error")
-            }
+            self.toDoRepository.updateToDo(toDo: data, data: "isDone", value: after)
             
             tableView.reloadData()
             if let vc = self.beforeVC {
@@ -115,28 +105,19 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let data = list[indexPath.row]
-        var flaged = data.isFlaged
-        flaged.toggle()
-        
         
         let edit = UIContextualAction(style: .normal, title: data.isFlaged ? "깃발 해제" : "깃발 표시") { (action, view, success: @escaping (Bool) -> Void) in
             
-            let realm = try! Realm()
-            do {
-                try realm.write {
-                    realm.create(ToDo.self,
-                                 value: ["id": data.id ,
-                                        "isFlaged": flaged],
-                                 update: .modified)
-                }
-            } catch {
-                print("Error")
-            }
+            var isFlaged = data.isFlaged
+            isFlaged.toggle()
+            
+            self.toDoRepository.updateToDo(toDo: data, data: "isFlaged", value: isFlaged)
             
             if let vc = self.beforeVC {
                 vc.collectionView.reloadData()
                 tableView.reloadData()
             }
+            
             success(true)
         }
         
@@ -144,6 +125,14 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         edit.image = UIImage(systemName: data.isFlaged ? "flag.slash.fill" : "flag.fill")
         
         let delete = UIContextualAction(style: .normal, title: "삭제") { (action, view, success: @escaping (Bool) -> Void) in
+            
+            self.toDoRepository.removeToDo(todo: data)
+            
+            if let vc = self.beforeVC {
+                vc.collectionView.reloadData()
+                tableView.reloadData()
+            }
+            
             success(true)
         }
         delete.backgroundColor = .systemRed

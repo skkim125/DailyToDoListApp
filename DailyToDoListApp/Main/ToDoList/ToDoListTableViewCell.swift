@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import RealmSwift
 
 final class ToDoListTableViewCell: BaseTableViewCell {
     private let isDoneButton = UIButton()
@@ -16,6 +15,7 @@ final class ToDoListTableViewCell: BaseTableViewCell {
     private let dateLabel = UILabel()
     private let hashtagLabel = UILabel()
     private let flagImageView = UIImageView()
+    
     private var isDone: Bool = false
     private var todo: ToDo?
     var isDoneClosure: ((Bool)->Bool)?

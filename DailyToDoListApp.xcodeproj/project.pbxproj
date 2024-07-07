@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		0435829C2C3A38830045B1FE /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435829B2C3A38830045B1FE /* ImageManager.swift */; };
 		043582A42C3AE0C00045B1FE /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 043582A32C3AE0C00045B1FE /* .gitignore */; };
+		043582A62C3AE1820045B1FE /* ToDoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043582A52C3AE1820045B1FE /* ToDoRepository.swift */; };
+		043582A82C3AEC020045B1FE /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043582A72C3AEC020045B1FE /* UICollectionView+Extension.swift */; };
+		043582AB2C3AEC510045B1FE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043582AA2C3AEC510045B1FE /* String+Extension.swift */; };
+		043582AD2C3AECAC0045B1FE /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043582AC2C3AECAC0045B1FE /* Date+Extension.swift */; };
 		04C264E52C368BD9009EDDB9 /* SetDeadLineVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E42C368BD9009EDDB9 /* SetDeadLineVIewController.swift */; };
 		04C264E72C3695AE009EDDB9 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E62C3695AE009EDDB9 /* CustomDatePicker.swift */; };
 		04C264E92C36D192009EDDB9 /* SetImportantValueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E82C36D192009EDDB9 /* SetImportantValueViewController.swift */; };
@@ -37,7 +41,7 @@
 		04EBB1C32C352CCD0096F65F /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1C22C352CCD0096F65F /* DividerLine.swift */; };
 		04EBB1C52C3540330096F65F /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1C42C3540330096F65F /* ToDoListViewController.swift */; };
 		04EBB1C82C3541CE0096F65F /* ToDoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1C72C3541CE0096F65F /* ToDoListTableViewCell.swift */; };
-		04EBB1CC2C359E5C0096F65F /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1CB2C359E5C0096F65F /* Extension.swift */; };
+		04EBB1CC2C359E5C0096F65F /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1CB2C359E5C0096F65F /* DateFormatter+Extension.swift */; };
 		04EBB1CE2C35A30F0096F65F /* SetHashTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBB1CD2C35A30F0096F65F /* SetHashTagViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +62,10 @@
 /* Begin PBXFileReference section */
 		0435829B2C3A38830045B1FE /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		043582A32C3AE0C00045B1FE /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		043582A52C3AE1820045B1FE /* ToDoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoRepository.swift; sourceTree = "<group>"; };
+		043582A72C3AEC020045B1FE /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		043582AA2C3AEC510045B1FE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		043582AC2C3AECAC0045B1FE /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		04C264E42C368BD9009EDDB9 /* SetDeadLineVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDeadLineVIewController.swift; sourceTree = "<group>"; };
 		04C264E62C3695AE009EDDB9 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		04C264E82C36D192009EDDB9 /* SetImportantValueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImportantValueViewController.swift; sourceTree = "<group>"; };
@@ -83,7 +91,7 @@
 		04EBB1C22C352CCD0096F65F /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
 		04EBB1C42C3540330096F65F /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		04EBB1C72C3541CE0096F65F /* ToDoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTableViewCell.swift; sourceTree = "<group>"; };
-		04EBB1CB2C359E5C0096F65F /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		04EBB1CB2C359E5C0096F65F /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		04EBB1CD2C35A30F0096F65F /* SetHashTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHashTagViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +115,8 @@
 			children = (
 				04E888C12C33EC4E000A3FA1 /* ToDo.swift */,
 				0435829B2C3A38830045B1FE /* ImageManager.swift */,
+				043582A52C3AE1820045B1FE /* ToDoRepository.swift */,
+				04E888D12C3401AF000A3FA1 /* Enum.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -117,6 +127,17 @@
 				04C264F32C39112D009EDDB9 /* CalendarViewController.swift */,
 			);
 			path = CalendarView;
+			sourceTree = "<group>";
+		};
+		043582A92C3AEC430045B1FE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				043582A72C3AEC020045B1FE /* UICollectionView+Extension.swift */,
+				043582AA2C3AEC510045B1FE /* String+Extension.swift */,
+				043582AC2C3AECAC0045B1FE /* Date+Extension.swift */,
+				04EBB1CB2C359E5C0096F65F /* DateFormatter+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		04E888912C33DFEA000A3FA1 = {
@@ -145,8 +166,7 @@
 				04EBB1BF2C35278B0096F65F /* CustomView */,
 				04E888CB2C340097000A3FA1 /* Main */,
 				0435829D2C3A3B260045B1FE /* Data */,
-				04E888D12C3401AF000A3FA1 /* Enum.swift */,
-				04EBB1CB2C359E5C0096F65F /* Extension.swift */,
+				043582A92C3AEC430045B1FE /* Extension */,
 				04E888C92C33F7AC000A3FA1 /* IdProtocol.swift */,
 				04E888A62C33DFEB000A3FA1 /* Assets.xcassets */,
 				04E888A82C33DFEB000A3FA1 /* LaunchScreen.storyboard */,
@@ -293,11 +313,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043582A62C3AE1820045B1FE /* ToDoRepository.swift in Sources */,
 				04C264E72C3695AE009EDDB9 /* CustomDatePicker.swift in Sources */,
 				04EBB1CE2C35A30F0096F65F /* SetHashTagViewController.swift in Sources */,
 				04E888C62C33F096000A3FA1 /* MainCollectionView.swift in Sources */,
 				0435829C2C3A38830045B1FE /* ImageManager.swift in Sources */,
 				04C264F62C392F64009EDDB9 /* CustomCalendar.swift in Sources */,
+				043582A82C3AEC020045B1FE /* UICollectionView+Extension.swift in Sources */,
 				04EBB1C52C3540330096F65F /* ToDoListViewController.swift in Sources */,
 				04E888A22C33DFEA000A3FA1 /* MainViewController.swift in Sources */,
 				04C264ED2C37CA7F009EDDB9 /* SetImageViewController.swift in Sources */,
@@ -310,11 +332,13 @@
 				04E888C82C33F749000A3FA1 /* AddToDoViewController.swift in Sources */,
 				04E888C22C33EC4E000A3FA1 /* ToDo.swift in Sources */,
 				04C264F42C39112D009EDDB9 /* CalendarViewController.swift in Sources */,
-				04EBB1CC2C359E5C0096F65F /* Extension.swift in Sources */,
+				043582AB2C3AEC510045B1FE /* String+Extension.swift in Sources */,
+				04EBB1CC2C359E5C0096F65F /* DateFormatter+Extension.swift in Sources */,
 				04E888BF2C33E6E0000A3FA1 /* BaseCell.swift in Sources */,
 				04C264E52C368BD9009EDDB9 /* SetDeadLineVIewController.swift in Sources */,
 				04E888A02C33DFEA000A3FA1 /* SceneDelegate.swift in Sources */,
 				04EBB1BE2C351EFD0096F65F /* ToDoDetailViewController.swift in Sources */,
+				043582AD2C3AECAC0045B1FE /* Date+Extension.swift in Sources */,
 				04EBB1C12C3527AD0096F65F /* ToDoElementButton.swift in Sources */,
 				04EBB1C32C352CCD0096F65F /* DividerLine.swift in Sources */,
 			);

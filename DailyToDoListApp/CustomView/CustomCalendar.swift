@@ -40,13 +40,3 @@ class CustomCalendar: FSCalendar {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-extension Date {
-    static func krDate(date: Date) -> Date {
-        let krTimeZone = TimeZone(identifier: "Asia/Seoul")!
-        let secondsFromGMT = krTimeZone.secondsFromGMT(for: date)
-        let krDate = date.addingTimeInterval(TimeInterval(secondsFromGMT))
-        
-        return krDate
-    }
-}

@@ -9,9 +9,10 @@ import UIKit
 import SnapKit
 
 final class SetHashTagViewController: BaseViewController {
+    private let textfieldLine = DividerLine()
     let hashTagLabel = UILabel()
     let hashTagTextField = UITextField()
-    let textfieldLine = DividerLine()
+    
     var beforeVC: AddToDoViewController?
     
     override func configureHierarchy() {

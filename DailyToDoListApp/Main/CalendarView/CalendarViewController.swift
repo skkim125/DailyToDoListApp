@@ -19,9 +19,8 @@ final class CalendarViewController: BaseViewController {
     private let divider = DividerLine()
     private let toDoListTableView = UITableView()
     
-    private let realm = try! Realm()
-    
-    private lazy var todoList: Results<ToDo>! = realm.objects(ToDo.self)
+    private let toDoRepository = ToDoRepository()
+    private lazy var todoList: Results<ToDo>! = toDoRepository.loadToDoList()
     private var isStyleChanged: Bool = true
     var beforeVC: MainViewController?
     
@@ -151,7 +150,7 @@ final class CalendarViewController: BaseViewController {
     
     private func updateList(date: Date) {
         let krDate = Date.krDate(date: date)
-        todoList = realm.objects(ToDo.self).where { $0.deadline >= Calendar.current.startOfDay(for: krDate) && $0.deadline <= Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: krDate)) }
+        todoList = toDoRepository.loadToDoList().where { $0.deadline >= Calendar.current.startOfDay(for: krDate) && $0.deadline <= Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: krDate)) }
         
         toDoListTableView.reloadData()
     }
@@ -178,23 +177,14 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             var after = before
             after.toggle()
             
-            let realm = try! Realm()
-            print(data.id)
-            do {
-                try realm.write {
-                    realm.create(ToDo.self,
-                                 value: ["id": data.id ,
-                                        "isDone": after],
-                                 update: .modified)
-                }
-            } catch {
-                print("Error")
-            }
+            self.toDoRepository.updateToDo(toDo: data, data: "isDone", value: after)
             
             tableView.reloadData()
+            
             if let vc = self.beforeVC {
                 vc.collectionView.reloadData()
             }
+            
             return after
         }
         cell.separatorInset = .init(top: 0, left: 50, bottom: 0, right: 0)
@@ -207,27 +197,19 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let data = todoList[indexPath.row]
-        var flaged = data.isFlaged
-        flaged.toggle()
         
         let edit = UIContextualAction(style: .normal, title: data.isFlaged ? "깃발 해제" : "깃발 표시") { (action, view, success: @escaping (Bool) -> Void) in
             
-            let realm = try! Realm()
-            do {
-                try realm.write {
-                    realm.create(ToDo.self,
-                                 value: ["id": data.id ,
-                                        "isFlaged": flaged],
-                                 update: .modified)
-                }
-            } catch {
-                print("Error")
-            }
+            var isFlaged = data.isFlaged
+            isFlaged.toggle()
+            
+            self.toDoRepository.updateToDo(toDo: data, data: "isFlaged", value: isFlaged)
             
             if let vc = self.beforeVC {
                 vc.collectionView.reloadData()
                 tableView.reloadData()
             }
+            
             success(true)
         }
         
@@ -235,6 +217,14 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
         edit.image = UIImage(systemName: data.isFlaged ? "flag.slash.fill" : "flag.fill")
         
         let delete = UIContextualAction(style: .normal, title: "삭제") { (action, view, success: @escaping (Bool) -> Void) in
+            
+            self.toDoRepository.removeToDo(todo: data)
+            
+            if let vc = self.beforeVC {
+                vc.collectionView.reloadData()
+                tableView.reloadData()
+            }
+            
             success(true)
         }
         delete.backgroundColor = .systemRed
@@ -251,7 +241,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        let data = realm.objects(ToDo.self)
+        let data = toDoRepository.loadToDoList()
         let krDate = Date.krDate(date: date)
         if data.contains(where: { $0.deadline >= Calendar.current.startOfDay(for: krDate) && $0.deadline <= Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: krDate)) }) {
             print("Yes")

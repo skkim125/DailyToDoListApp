@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 import SnapKit
 
 protocol ToDoContentsDelegate {
@@ -29,8 +28,7 @@ final class AddToDoViewController: BaseViewController {
     private let selectImageView = UIImageView()
     private let imageRemoveButton = UIButton(type: .system)
     
-    private let realm = try! Realm()
-    
+    private let toDoRepository = ToDoRepository()
     var sendData: (() -> Void)?
     
     private var titleText: String?
@@ -51,21 +49,19 @@ final class AddToDoViewController: BaseViewController {
     }
     
     @objc private func addButtonClicked() {
-        try! realm.write {
-            if let title = titleText {
-                memo = memoTextView.text
-                let todo = ToDo(title: title, memo: memo ?? nil, hashTag: hashtag ?? "", date: Date(), deadline: deadline ?? Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())), importantValue: importantValue ?? 1)
-                
-                realm.add(todo)
-                if let image = selectImageView.image {
-                    ImageManager.shared.saveImageToDocument(image: image, filename: "\(todo.id)")
-                } else {
-                    ImageManager.shared.saveImageToDocument(image: UIImage(systemName: "photo.artframe")!, filename: "\(todo.id)")
-                }
-                sendData?()
+        if let title = titleText {
+            memo = memoTextView.text
+            let todo = ToDo(title: title, memo: memo ?? nil, hashTag: hashtag ?? "", date: Date(), deadline: deadline ?? Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())), importantValue: importantValue ?? 1)
+            
+            toDoRepository.addToDo(todo: todo)
+            if let image = selectImageView.image {
+                ImageManager.shared.saveImageToDocument(image: image, filename: "\(todo.id)")
+            } else {
+                ImageManager.shared.saveImageToDocument(image: UIImage(systemName: "photo.artframe")!, filename: "\(todo.id)")
             }
+            sendData?()
         }
-
+        
         dismiss(animated: true)
     }
     
@@ -264,7 +260,6 @@ extension AddToDoViewController: ToDoContentsDelegate {
     
     func sendImportantValue(importantValue: Int) {
         self.importantValue = importantValue
-        print(self.importantValue)
         importantValueButton.todoDataLabel.text = ImportantVlue.allCases[importantValue].rawValue
     }
     

@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 final class MainCollectionView: BaseCollectionViewCell {
-    
     private let imageView = UIImageView()
     private let collectionTitleLabel = UILabel()
     private let listCountLabel = UILabel()
