@@ -17,7 +17,7 @@ protocol ToDoContentsDelegate {
 }
 
 final class AddToDoViewController: BaseViewController {
-    private lazy var elementStackView = UIStackView(arrangedSubviews: [contentsStackView, deadlineButton, hashTagButton, importantValueButton, addImageButton])
+    private lazy var elementStackView = UIStackView(arrangedSubviews: [contentsStackView, deadlineButton, hashTagButton, importantValueButton, selectImageView, addImageButton])
     private lazy var contentsStackView = UIStackView(arrangedSubviews: [titleTextField, divider, memoTextView])
     private let titleTextField = UITextField()
     private let divider = DividerLine()
@@ -26,12 +26,13 @@ final class AddToDoViewController: BaseViewController {
     private let hashTagButton = ToDoElementButton(TodoContents.hashTag)
     private let importantValueButton = ToDoElementButton(TodoContents.isImortant)
     private let addImageButton = ToDoElementButton(TodoContents.addImage)
+    private let selectImageView = UIImageView()
+    private let imageRemoveButton = UIButton(type: .system)
     
     private let realm = try! Realm()
     
     var sendData: (() -> Void)?
     
-    private var image: UIImage?
     private var titleText: String?
     private var memo: String?
     private var hashtag: String?
@@ -56,6 +57,11 @@ final class AddToDoViewController: BaseViewController {
                 let todo = ToDo(title: title, memo: memo ?? nil, hashTag: hashtag ?? "", date: Date(), deadline: deadline ?? Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())), importantValue: importantValue ?? 1)
                 
                 realm.add(todo)
+                if let image = selectImageView.image {
+                    ImageManager.shared.saveImageToDocument(image: image, filename: "\(todo.id)")
+                } else {
+                    ImageManager.shared.saveImageToDocument(image: UIImage(systemName: "photo.artframe")!, filename: "\(todo.id)")
+                }
                 sendData?()
             }
         }
@@ -66,12 +72,20 @@ final class AddToDoViewController: BaseViewController {
     override func configureHierarchy() {
         view.addSubview(contentsStackView)
         view.addSubview(elementStackView)
+        view.addSubview(imageRemoveButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.isNavigationBarHidden = false
+        showImageView()
+    }
+    
+    func showImageView() {
+        selectImageView.isHidden = (selectImageView.image == nil) ? true : false
+        imageRemoveButton.isHidden = (selectImageView.image == nil) ? true : false
+        addImageButton.todoDataLabel.text = (selectImageView.image == nil) ? nil : "이미지 추가 완료!"
     }
     
     override func configureLayout() {
@@ -115,9 +129,20 @@ final class AddToDoViewController: BaseViewController {
             make.height.equalTo(45)
         }
         
+        selectImageView.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.size.equalTo(150)
+        }
+        
         addImageButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(elementStackView.safeAreaLayoutGuide).inset(15)
             make.height.equalTo(45)
+        }
+        
+        imageRemoveButton.snp.makeConstraints { make in
+            make.size.equalTo(25)
+            make.top.equalTo(selectImageView.snp.top).inset(-8)
+            make.trailing.equalTo(selectImageView.snp.trailing).offset(8)
         }
     }
     
@@ -142,6 +167,22 @@ final class AddToDoViewController: BaseViewController {
         buttonAddTarget(hashTagButton, self, action: #selector(todoClicked(_:)))
         buttonAddTarget(importantValueButton, self, action: #selector(todoClicked(_:)))
         buttonAddTarget(addImageButton, self, action: #selector(todoClicked(_:)))
+        
+        selectImageView.layer.cornerRadius = 12
+        selectImageView.clipsToBounds = true
+        selectImageView.layer.borderColor = UIColor.lightGray.cgColor
+        selectImageView.layer.borderWidth = 0.5
+
+        let config = UIImage.SymbolConfiguration(paletteColors: [.white, .systemRed])
+        let image = UIImage(systemName: "xmark.circle.fill", withConfiguration: config)
+        imageRemoveButton.setImage(image, for: .normal)
+        imageRemoveButton.tintColor = .white
+        imageRemoveButton.addTarget(self, action: #selector(removeImageButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc private func removeImageButtonClicked() {
+        selectImageView.image = nil
+        showImageView()
     }
     
     @objc private func todoClicked(_ sender: UIButton) {
@@ -228,8 +269,7 @@ extension AddToDoViewController: ToDoContentsDelegate {
     }
     
     func sendImage(image: UIImage?) {
-        self.image = image
-        
-        addImageButton.todoDataLabel.text = self.image == nil ? nil : "이미지 추가 완료!"
+        selectImageView.image = image
+        showImageView()
     }
 }

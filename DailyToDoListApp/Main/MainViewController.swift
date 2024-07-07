@@ -27,7 +27,7 @@ final class MainViewController: BaseViewController {
         return layout
     }
     
-    private let addTodoButton = UIButton()
+    private let addTodoButton = UIButton(type: .custom)
     
     private let realm = try! Realm()
     private var list: Results<ToDo>!
@@ -82,11 +82,10 @@ final class MainViewController: BaseViewController {
         configuration.attributedTitle = title
         configuration.image = UIImage(systemName: "plus.circle.fill")!.applyingSymbolConfiguration(.init(pointSize: 20, weight: .bold))
         configuration.imagePlacement = .leading
-        configuration.imagePadding = 10
+        configuration.imagePadding = 5
         configuration.baseForegroundColor = .systemBlue
         
         addTodoButton.configuration = configuration
-        
         addTodoButton.addTarget(self, action: #selector(addTodoButtonClicked), for: .touchUpInside)
         
         list = realm.objects(ToDo.self)
@@ -144,15 +143,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .all:
             return list
         case .today:
-            let filter = list.where { $0.deadline >= Calendar.current.startOfDay(for: Date()) && $0.deadline <= Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())) }
+            let filter = list.where { $0.deadline >= Calendar.current.startOfDay(for: Date()) && $0.deadline <= Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())) }.sorted(byKeyPath: "date", ascending: true)
             return filter
         case .willDo:
-            let filter = list.where { $0.deadline > Date(timeInterval: 86400, since: Calendar.current.startOfDay(for: Date())) }
+            let filter = list.where { $0.deadline > Date(timeInterval: 86400, since: Calendar.current.startOfDay(for: Date())) }.sorted(byKeyPath: "date", ascending: true)
             return filter
         case .isFlaged:
-            return list.where { $0.isFlaged }
+            return list.where { $0.isFlaged }.sorted(byKeyPath: "date", ascending: true)
         case .isDone:
-            return list.where { $0.isDone }
+            return list.where { $0.isDone }.sorted(byKeyPath: "date", ascending: true)
         }
     }
 }

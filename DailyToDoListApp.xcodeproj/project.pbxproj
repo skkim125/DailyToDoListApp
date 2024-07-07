@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0435829C2C3A38830045B1FE /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0435829B2C3A38830045B1FE /* ImageManager.swift */; };
 		04C264E52C368BD9009EDDB9 /* SetDeadLineVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E42C368BD9009EDDB9 /* SetDeadLineVIewController.swift */; };
 		04C264E72C3695AE009EDDB9 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E62C3695AE009EDDB9 /* CustomDatePicker.swift */; };
 		04C264E92C36D192009EDDB9 /* SetImportantValueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E82C36D192009EDDB9 /* SetImportantValueViewController.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0435829B2C3A38830045B1FE /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		04C264E42C368BD9009EDDB9 /* SetDeadLineVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDeadLineVIewController.swift; sourceTree = "<group>"; };
 		04C264E62C3695AE009EDDB9 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		04C264E82C36D192009EDDB9 /* SetImportantValueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImportantValueViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0435829D2C3A3B260045B1FE /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				04E888C12C33EC4E000A3FA1 /* ToDo.swift */,
+				0435829B2C3A38830045B1FE /* ImageManager.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		04E888912C33DFEA000A3FA1 = {
 			isa = PBXGroup;
 			children = (
@@ -122,7 +133,7 @@
 				04E888C02C33E6E4000A3FA1 /* Base */,
 				04EBB1BF2C35278B0096F65F /* CustomView */,
 				04E888CB2C340097000A3FA1 /* Main */,
-				04E888C12C33EC4E000A3FA1 /* ToDo.swift */,
+				0435829D2C3A3B260045B1FE /* Data */,
 				04E888D12C3401AF000A3FA1 /* Enum.swift */,
 				04EBB1CB2C359E5C0096F65F /* Extension.swift */,
 				04E888C92C33F7AC000A3FA1 /* IdProtocol.swift */,
@@ -146,8 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				04E888A12C33DFEA000A3FA1 /* MainViewController.swift */,
-				04C264F32C39112D009EDDB9 /* CalendarViewController.swift */,
 				04E888C52C33F096000A3FA1 /* MainCollectionView.swift */,
+				04C264F32C39112D009EDDB9 /* CalendarViewController.swift */,
 				04EBB1C62C3540DF0096F65F /* ToDoList */,
 				04E888CC2C3400A4000A3FA1 /* Add */,
 			);
@@ -273,6 +284,7 @@
 				04C264E72C3695AE009EDDB9 /* CustomDatePicker.swift in Sources */,
 				04EBB1CE2C35A30F0096F65F /* SetHashTagViewController.swift in Sources */,
 				04E888C62C33F096000A3FA1 /* MainCollectionView.swift in Sources */,
+				0435829C2C3A38830045B1FE /* ImageManager.swift in Sources */,
 				04C264F62C392F64009EDDB9 /* CustomCalendar.swift in Sources */,
 				04EBB1C52C3540330096F65F /* ToDoListViewController.swift in Sources */,
 				04E888A22C33DFEA000A3FA1 /* MainViewController.swift in Sources */,
