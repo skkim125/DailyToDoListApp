@@ -41,6 +41,7 @@ final class MainViewController: BaseViewController {
     
     @objc func calendarButtonClicked() {
         let vc = CalendarViewController()
+        vc.beforeVC = self
         
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
