@@ -10,7 +10,7 @@ import FSCalendar
 import SnapKit
 import RealmSwift
 
-class CalendarViewController: BaseViewController {
+final class CalendarViewController: BaseViewController {
     private let calendarBGView = UIView()
     private let calendarView = CustomCalendar()
     private let nextButton = UIButton()
@@ -107,11 +107,11 @@ class CalendarViewController: BaseViewController {
         calendarStyleButton.addTarget(self, action: #selector(calendarStyleChange), for: .touchUpInside)
     }
     
-    @objc func nextButtonClicked() {
+    @objc private func nextButtonClicked() {
         moveCurrentPage(moveUp: true)
     }
     
-    @objc func previousButtonClicked() {
+    @objc private func previousButtonClicked() {
         moveCurrentPage(moveUp: false)
     }
     
@@ -129,7 +129,7 @@ class CalendarViewController: BaseViewController {
         calendarView.setCurrentPage(calendarView.currentPage, animated: true)
     }
     
-    @objc func calendarStyleChange() {
+    @objc private func calendarStyleChange() {
         isStyleChanged.toggle()
         
         calendarStyleButton.setImage(UIImage(systemName: isStyleChanged ? "chevron.up" : "chevron.down"), for: .normal)
@@ -145,15 +145,8 @@ class CalendarViewController: BaseViewController {
         }
     }
     
-    @objc func backButtonClicked() {
+    @objc private func backButtonClicked() {
         dismiss(animated: true)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if let date = calendarView.today {
-            updateList(date: date)
-        }
     }
     
     private func updateList(date: Date) {
@@ -161,6 +154,13 @@ class CalendarViewController: BaseViewController {
         todoList = realm.objects(ToDo.self).where { $0.deadline >= Calendar.current.startOfDay(for: krDate) && $0.deadline <= Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: krDate)) }
         
         toDoListTableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let date = calendarView.today {
+            updateList(date: date)
+        }
     }
 }
 
