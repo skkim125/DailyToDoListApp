@@ -19,7 +19,7 @@ class MyFolderRepository {
         return realm.objects(Folder.self)
     }
     
-    func addToDo(folder: Folder) {
+    func addFolder(folder: Folder) {
         do {
             try realm.write {
                 realm.add(folder)
@@ -30,7 +30,7 @@ class MyFolderRepository {
         }
     }
     
-    func removeToDo(folder: Folder) {
+    func removeFolder(folder: Folder) {
         do {
             try realm.write {
                 realm.delete(folder)

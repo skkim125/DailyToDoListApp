@@ -14,4 +14,12 @@ class Folder: Object {
     @Persisted var color: String
     
     @Persisted var todo: List<ToDo>
+    
+    convenience init(title: String, color: String) {
+        self.init()
+        self.title = title
+        self.color = color
+        
+        self.todo = List<ToDo>()
+    }
 }

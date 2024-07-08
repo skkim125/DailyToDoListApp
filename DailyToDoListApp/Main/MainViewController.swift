@@ -92,6 +92,11 @@ final class MainViewController: BaseViewController {
     
     @objc private func addMyFolderButtonClicked() {
         let vc = AddMyFolderViewController()
+        vc.sendData = {
+            self.collectionView.reloadData()
+            self.view.makeToast("폴더가 추가되었어요")
+        }
+        
         let nav = UINavigationController(rootViewController: vc)
         
         present(nav, animated: true)

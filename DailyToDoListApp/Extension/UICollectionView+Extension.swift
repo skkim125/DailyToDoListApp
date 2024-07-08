@@ -16,7 +16,7 @@ extension UICollectionViewLayout {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = cellSpacing
         layout.minimumInteritemSpacing = sectionSpacing
-        layout.itemSize = CGSize(width: width/2, height: width/3.6)
+        layout.itemSize = CGSize(width: width/2, height: width/3.8)
         layout.sectionInset = .init(top: sectionSpacing, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
         
         return layout

@@ -103,3 +103,10 @@ enum ListSortType: String, CaseIterable {
     }
     
 }
+
+enum FolderColor: String {
+    case red = "FC2B2D"
+    case blue = "3B81F5"
+    case green = "30D33B"
+    case orange = "FD8D0E"
+}
