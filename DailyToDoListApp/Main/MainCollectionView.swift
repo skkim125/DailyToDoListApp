@@ -51,7 +51,7 @@ final class MainCollectionView: BaseCollectionViewCell {
         listCountLabel.font = .boldSystemFont(ofSize: 25)
     }
     
-    func configureTableViewCellUI(data: SortType, count: Int) {
+    func configureTableViewCellUI(data: ListSortType, count: Int) {
         let config = UIImage.SymbolConfiguration(paletteColors: [.white, data.imageTintColor])
         let image = UIImage(systemName: data.image, withConfiguration: config)
         

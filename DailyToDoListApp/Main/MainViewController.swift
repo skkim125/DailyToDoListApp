@@ -6,8 +6,9 @@
 //
 
 import UIKit
-import SnapKit
 import RealmSwift
+import SnapKit
+import Toast
 
 final class MainViewController: BaseViewController {
     
@@ -81,6 +82,7 @@ final class MainViewController: BaseViewController {
         let vc = AddToDoViewController()
         vc.sendData = {
             self.collectionView.reloadData()
+            self.view.makeToast("할 일이 추가되었어요")
         }
         let nav = UINavigationController(rootViewController: vc)
         
@@ -96,12 +98,12 @@ final class MainViewController: BaseViewController {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return SortType.allCases.count
+        return ListSortType.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionView.id, for: indexPath) as? MainCollectionView {
-            let data = SortType.allCases[indexPath.row]
+            let data = ListSortType.allCases[indexPath.row]
             
             cell.configureTableViewCellUI(data: data, count: loadList(data: data, list: list).count)
             
@@ -114,7 +116,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let data = SortType.allCases[indexPath.row]
+        let data = ListSortType.allCases[indexPath.row]
         let vc = ToDoListViewController()
         
         vc.configureSetList(list: loadList(data: data, list: list))
@@ -123,7 +125,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func loadList(data: SortType, list: Results<ToDo>) -> Results<ToDo>! {
+    func loadList(data: ListSortType, list: Results<ToDo>) -> Results<ToDo>! {
         
         switch data {
         case .all:

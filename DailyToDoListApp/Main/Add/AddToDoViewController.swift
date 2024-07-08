@@ -23,7 +23,7 @@ final class AddToDoViewController: BaseViewController {
     private let memoTextView = UITextView()
     private let deadlineButton = ToDoElementButton(TodoContents.deadline)
     private let hashTagButton = ToDoElementButton(TodoContents.hashTag)
-    private let importantValueButton = ToDoElementButton(TodoContents.isImortant)
+    private let importantValueButton = ToDoElementButton(TodoContents.importantValue)
     private let addImageButton = ToDoElementButton(TodoContents.addImage)
     private let selectImageView = UIImageView()
     private let imageRemoveButton = UIButton(type: .system)
@@ -69,19 +69,6 @@ final class AddToDoViewController: BaseViewController {
         view.addSubview(contentsStackView)
         view.addSubview(elementStackView)
         view.addSubview(imageRemoveButton)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.isNavigationBarHidden = false
-        showImageView()
-    }
-    
-    func showImageView() {
-        selectImageView.isHidden = (selectImageView.image == nil) ? true : false
-        imageRemoveButton.isHidden = (selectImageView.image == nil) ? true : false
-        addImageButton.todoDataLabel.text = (selectImageView.image == nil) ? nil : "이미지 추가 완료!"
     }
     
     override func configureLayout() {
@@ -186,7 +173,7 @@ final class AddToDoViewController: BaseViewController {
         switch data {
             
         case .deadline:
-            let vc = SetDeadLineVIewController()
+            let vc = SetDeadLineViewController()
             vc.beforeView = self
             
             if let deadline = self.deadline {
@@ -206,7 +193,7 @@ final class AddToDoViewController: BaseViewController {
             }
             navigationController?.pushViewController(vc, animated: true)
             
-        case .isImortant:
+        case .importantValue:
             let vc = SetImportantValueViewController()
             vc.beforeVC = self
             if let value = importantValue {
@@ -226,8 +213,17 @@ final class AddToDoViewController: BaseViewController {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    private func showImageView() {
+        selectImageView.isHidden = (selectImageView.image == nil) ? true : false
+        imageRemoveButton.isHidden = (selectImageView.image == nil) ? true : false
+        addImageButton.todoDataLabel.text = (selectImageView.image == nil) ? nil : "이미지 추가 완료!"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.isNavigationBarHidden = false
+        showImageView()
     }
 }
 

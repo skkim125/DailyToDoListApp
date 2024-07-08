@@ -155,6 +155,12 @@ final class CalendarViewController: BaseViewController {
         toDoListTableView.reloadData()
     }
     
+    private func updateVC(_ tv: UITableView) {
+        if let vc = self.beforeVC {
+            UITableView.reloadView(cv: vc.collectionView, tv: tv)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let date = calendarView.today {
@@ -178,12 +184,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             after.toggle()
             
             self.toDoRepository.updateToDo(toDo: data, data: "isDone", value: after)
-            
-            tableView.reloadData()
-            
-            if let vc = self.beforeVC {
-                vc.collectionView.reloadData()
-            }
+            self.updateVC(tableView)
             
             return after
         }
@@ -204,11 +205,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             isFlaged.toggle()
             
             self.toDoRepository.updateToDo(toDo: data, data: "isFlaged", value: isFlaged)
-            
-            if let vc = self.beforeVC {
-                vc.collectionView.reloadData()
-                tableView.reloadData()
-            }
+            self.updateVC(tableView)
             
             success(true)
         }
@@ -219,14 +216,11 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
         let delete = UIContextualAction(style: .normal, title: "삭제") { (action, view, success: @escaping (Bool) -> Void) in
             
             self.toDoRepository.removeToDo(todo: data)
-            
-            if let vc = self.beforeVC {
-                vc.collectionView.reloadData()
-                tableView.reloadData()
-            }
+            self.updateVC(tableView)
             
             success(true)
         }
+        
         delete.backgroundColor = .systemRed
         delete.image = UIImage(systemName: "trash.fill")
         

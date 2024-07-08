@@ -18,14 +18,14 @@ final class ToDoListViewController: BaseViewController {
     
     
     override func configureNavigationBar() {
-        let defaultSort = UIAction(title: "최근추가순", image: UIImage(systemName: "clock"), handler: { _ in
+        let defaultSort = UIAction(title: SortType.defualt.rawValue, image: UIImage(systemName: "clock"), handler: { _ in
             self.sortOfDefault()
         })
         
-        let sortofImportant = UIAction(title: "우선순위순", image: UIImage(systemName: "1.circle"), handler: { _ in self.sortOfImportantValue()
+        let sortofImportant = UIAction(title: SortType.importantValue.rawValue, image: UIImage(systemName: "1.circle"), handler: { _ in self.sortOfImportantValue()
         })
         
-        let sortofDeadline = UIAction(title: "마감일자순", image: UIImage(systemName: "calendar.badge.checkmark"), handler: { _ in
+        let sortofDeadline = UIAction(title: SortType.deadline.rawValue, image: UIImage(systemName: "calendar.badge.checkmark"), handler: { _ in
             self.sortOfDeadLine()
         })
                                    
@@ -34,17 +34,17 @@ final class ToDoListViewController: BaseViewController {
     }
     
     private func sortOfDefault() {
-        list = list.sorted(byKeyPath: "date", ascending: true)
+        list = list.sorted(byKeyPath: SortType.defualt.updateValueType, ascending: true)
         toDoListTableView.reloadData()
     }
     
     private func sortOfImportantValue() {
-        list = list.sorted(byKeyPath: "importantValue", ascending: false)
+        list = list.sorted(byKeyPath: SortType.importantValue.updateValueType, ascending: false)
         toDoListTableView.reloadData()
     }
     
     private func sortOfDeadLine() {
-        list = list.sorted(byKeyPath: "deadline", ascending: true)
+        list = list.sorted(byKeyPath: SortType.deadline.updateValueType, ascending: true)
         toDoListTableView.reloadData()
     }
     
@@ -65,12 +65,18 @@ final class ToDoListViewController: BaseViewController {
         toDoListTableView.rowHeight = 100
     }
     
-    func configureNavigationBar(sortType: SortType) {
+    func configureNavigationBar(sortType: ListSortType) {
         navigationItem.title = sortType.rawValue
     }
     
     func configureSetList(list: Results<ToDo>) {
         self.list = list
+    }
+    
+    private func updateVC(_ tv: UITableView) {
+        if let vc = self.beforeVC {
+            UITableView.reloadView(cv: vc.collectionView, tv: tv)
+        }
     }
 }
 
@@ -89,11 +95,8 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
             after.toggle()
             
             self.toDoRepository.updateToDo(toDo: data, data: "isDone", value: after)
+            self.updateVC(tableView)
             
-            tableView.reloadData()
-            if let vc = self.beforeVC {
-                vc.collectionView.reloadData()
-            }
             return after
         }
         cell.separatorInset = .init(top: 0, left: 50, bottom: 0, right: 0)
@@ -112,11 +115,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
             isFlaged.toggle()
             
             self.toDoRepository.updateToDo(toDo: data, data: "isFlaged", value: isFlaged)
-            
-            if let vc = self.beforeVC {
-                vc.collectionView.reloadData()
-                tableView.reloadData()
-            }
+            self.updateVC(tableView)
             
             success(true)
         }
@@ -127,14 +126,11 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         let delete = UIContextualAction(style: .normal, title: "삭제") { (action, view, success: @escaping (Bool) -> Void) in
             
             self.toDoRepository.removeToDo(todo: data)
-            
-            if let vc = self.beforeVC {
-                vc.collectionView.reloadData()
-                tableView.reloadData()
-            }
+            self.updateVC(tableView)
             
             success(true)
         }
+        
         delete.backgroundColor = .systemRed
         delete.image = UIImage(systemName: "trash.fill")
         

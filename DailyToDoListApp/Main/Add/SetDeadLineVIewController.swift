@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SetDeadLineVIewController: BaseViewController {
+final class SetDeadLineViewController: BaseViewController {
     let datePicker = CustomDatePicker()
     let deadlineLabel = UILabel()
     
@@ -42,6 +42,7 @@ final class SetDeadLineVIewController: BaseViewController {
         datePicker.backgroundColor = .systemGray6
         datePicker.addTarget(self, action: #selector(datePickerClicked), for: .valueChanged)
         
+        deadlineLabel.text = "\(DateFormatter.customDateFormatter(date: Date()))"
         deadlineLabel.font = .boldSystemFont(ofSize: 20)
         deadlineLabel.textAlignment = .center
     }

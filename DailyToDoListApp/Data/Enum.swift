@@ -8,6 +8,23 @@
 import UIKit
 import RealmSwift
 
+enum SortType: String {
+    case defualt = "최근추가순"
+    case importantValue = "우선순위순"
+    case deadline = "마감일자순"
+    
+    var updateValueType: String {
+        switch self {
+        case .defualt:
+            return "date"
+        case .importantValue:
+            return "importantValue"
+        case .deadline:
+            return "deadline"
+        }
+    }
+}
+
 enum ImportantVlue: String, CaseIterable {
     case low = "낮음"
     case mid = "보통"
@@ -29,7 +46,7 @@ enum TodoContents: String, CaseIterable {
     case memos
     case deadline = "마감일"
     case hashTag = "태그"
-    case isImortant = "우선순위"
+    case importantValue = "우선순위"
     case addImage = "이미지 추가"
     
     var buttonTag: Int {
@@ -38,7 +55,7 @@ enum TodoContents: String, CaseIterable {
             return 1
         case .hashTag:
             return 2
-        case .isImortant:
+        case .importantValue:
             return 3
         case .addImage:
             return 4
@@ -48,12 +65,7 @@ enum TodoContents: String, CaseIterable {
     }
 }
 
-enum TodoContentsMemos: String, CaseIterable {
-    case title = "제목"
-    case memos = "메모"
-}
-
-enum SortType: String, CaseIterable {
+enum ListSortType: String, CaseIterable {
     case today = "오늘"
     case willDo = "예정"
     case all = "전체"
