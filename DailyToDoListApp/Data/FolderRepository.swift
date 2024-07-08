@@ -1,50 +1,50 @@
 //
-//  ToDoRepository.swift
+//  FolderRepository.swift
 //  DailyToDoListApp
 //
-//  Created by 김상규 on 7/7/24.
+//  Created by 김상규 on 7/8/24.
 //
 
 import Foundation
 import RealmSwift
 
-class ToDoRepository {
+class MyFolderRepository {
     private let realm = try! Realm()
     
     func loadURL() {
         print(realm.configuration.fileURL)
     }
     
-    func loadToDoList() -> Results<ToDo> {
-        return realm.objects(ToDo.self)
+    func loadMyFolder() -> Results<Folder> {
+        return realm.objects(Folder.self)
     }
     
-    func addToDo(todo: ToDo) {
+    func addToDo(folder: Folder) {
         do {
             try realm.write {
-                realm.add(todo)
-                print("ToDo 추가 성공")
+                realm.add(folder)
+                print("Folder 추가 성공")
             }
         } catch {
             print("Realm Error")
         }
     }
     
-    func removeToDo(todo: ToDo) {
+    func removeToDo(folder: Folder) {
         do {
             try realm.write {
-                realm.delete(todo)
+                realm.delete(folder)
             }
         } catch {
             print("Realm Error")
         }
     }
     
-    func updateToDo<T>(toDo: ToDo, data: String, value: T) {
+    func updateValue<T>(folder: Folder, data: String, value: T) {
         do {
             try realm.write {
-                realm.create(ToDo.self, value:
-                                ["id": toDo.id,
+                realm.create(Folder.self, value:
+                                ["id": folder.id,
                                  "\(data)": value
                                 ],
                              update: .modified

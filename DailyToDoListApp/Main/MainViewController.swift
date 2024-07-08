@@ -13,12 +13,17 @@ import Toast
 final class MainViewController: BaseViewController {
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout.configureCollectionViewLayout())
+    private let addTodoButton = MainViewButton(title: "새로운 할 일", image: "plus.circle.fill", type: .system, fontSize: 20)
+    private let addMyFolderButton = MainViewButton(title: "목록 추가", image: nil, type: .system, fontSize: 18)
     
-    private let addTodoButton = UIButton(type: .custom)
-    
-    private let realm = try! Realm()
     private let toDoRepository = ToDoRepository()
     private lazy var list: Results<ToDo> = toDoRepository.loadToDoList()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        toDoRepository.loadURL()
+    }
     
     override func configureNavigationBar() {
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -41,6 +46,7 @@ final class MainViewController: BaseViewController {
     override func configureHierarchy() {
         view.addSubview(collectionView)
         view.addSubview(addTodoButton)
+        view.addSubview(addMyFolderButton)
     }
     
     override func configureLayout() {
@@ -55,6 +61,12 @@ final class MainViewController: BaseViewController {
             make.leading.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.height.equalTo(40)
         }
+        
+        addMyFolderButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.height.equalTo(40)
+        }
     }
     
     override func configureView() {
@@ -63,19 +75,8 @@ final class MainViewController: BaseViewController {
         collectionView.register(MainCollectionView.self, forCellWithReuseIdentifier: MainCollectionView.id)
         collectionView.backgroundColor = .black
         
-        var configuration = UIButton.Configuration.plain()
-        
-        var title = AttributedString("새로운 할 일")
-        title.font = .boldSystemFont(ofSize: 20)
-        
-        configuration.attributedTitle = title
-        configuration.image = UIImage(systemName: "plus.circle.fill")!.applyingSymbolConfiguration(.init(pointSize: 20, weight: .bold))
-        configuration.imagePlacement = .leading
-        configuration.imagePadding = 5
-        configuration.baseForegroundColor = .systemBlue
-        
-        addTodoButton.configuration = configuration
         addTodoButton.addTarget(self, action: #selector(addTodoButtonClicked), for: .touchUpInside)
+        addMyFolderButton.addTarget(self, action: #selector(addMyFolderButtonClicked), for: .touchUpInside)
     }
     
     @objc private func addTodoButtonClicked() {
@@ -89,10 +90,11 @@ final class MainViewController: BaseViewController {
         present(nav, animated: true)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    @objc private func addMyFolderButtonClicked() {
+        let vc = AddMyFolderViewController()
+        let nav = UINavigationController(rootViewController: vc)
         
-        print(realm.configuration.fileURL)
+        present(nav, animated: true)
     }
 }
 
@@ -131,15 +133,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .all:
             return list
         case .today:
-            let filter = list.where { $0.deadline >= Calendar.current.startOfDay(for: Date()) && $0.deadline <= Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())) }.sorted(byKeyPath: "date", ascending: true)
+            let filter = list.where { $0.deadline >= Calendar.current.startOfDay(for: Date()) && $0.deadline <= Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())) }.sorted(byKeyPath: SortType.defualt.updateValueType, ascending: true)
             return filter
         case .willDo:
-            let filter = list.where { $0.deadline > Date(timeInterval: 86400, since: Calendar.current.startOfDay(for: Date())) }.sorted(byKeyPath: "date", ascending: true)
+            let filter = list.where { $0.deadline > Date(timeInterval: 86400, since: Calendar.current.startOfDay(for: Date())) }.sorted(byKeyPath: SortType.defualt.updateValueType, ascending: true)
             return filter
         case .isFlaged:
-            return list.where { $0.isFlaged }.sorted(byKeyPath: "date", ascending: true)
+            return list.where { $0.isFlaged }.sorted(byKeyPath: SortType.defualt.updateValueType, ascending: true)
         case .isDone:
-            return list.where { $0.isDone }.sorted(byKeyPath: "date", ascending: true)
+            return list.where { $0.isDone }.sorted(byKeyPath: SortType.defualt.updateValueType, ascending: true)
         }
     }
 }
