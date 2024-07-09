@@ -8,22 +8,21 @@
 import UIKit
 import SnapKit
 
-class ToDoElementButton: UIButton {
+class MenuButtonUI: UIButton {
     let todoButtonLabel = UILabel()
     let goNextViewImageView = UIImageView()
     let todoDataLabel = UILabel()
     
-    init(_ element: TodoContents) {
+    override init(frame: CGRect) {
         super.init(frame: .zero)
         
-        configureButton(element: element)
+        configureButton()
         configureHierarchy()
         configureLayout()
         configureSubView()
-        configureButtonText(title: element.rawValue)
     }
     
-    private func configureButton(element: TodoContents) {
+    private func configureButton() {
         var configuration = UIButton.Configuration.bordered()
         configuration.baseBackgroundColor = .systemGray5
         configuration.titleAlignment = .leading
@@ -32,8 +31,6 @@ class ToDoElementButton: UIButton {
         tintColor = .white
         clipsToBounds = true
         layer.cornerRadius = 8
-        
-        tag = element.buttonTag
     }
     
     private func configureHierarchy() {
@@ -62,7 +59,11 @@ class ToDoElementButton: UIButton {
         }
     }
     
-    private func configureSubView() {
+    func getButtonTag(element: TodoContents) {
+        tag = element.buttonTag
+    }
+    
+    func configureSubView() {
         todoButtonLabel.textColor = .white.withAlphaComponent(0.7)
         todoButtonLabel.font = .systemFont(ofSize: 15)
         
@@ -74,7 +75,7 @@ class ToDoElementButton: UIButton {
         goNextViewImageView.contentMode = .scaleAspectFit
     }
     
-    private func configureButtonText(title: String) {
+    func configureButtonText(title: String) {
         todoButtonLabel.text = title
     }
     

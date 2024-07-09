@@ -141,10 +141,11 @@ class AddMyFolderViewController: BaseViewController {
         colorPickerView.layer.cornerRadius = 12
         colorPickerView.clipsToBounds = true
         
-        redColor.addTarget(self, action: #selector(colorButtonClicked(_:)), for: .touchUpInside)
-        blueColor.addTarget(self, action: #selector(colorButtonClicked(_:)), for: .touchUpInside)
-        greenColor.addTarget(self, action: #selector(colorButtonClicked(_:)), for: .touchUpInside)
-        orangeColor.addTarget(self, action: #selector(colorButtonClicked(_:)), for: .touchUpInside)
+        
+        buttonAddTarget(redColor, self, action: #selector(colorButtonClicked(_:)))
+        buttonAddTarget(blueColor, self, action: #selector(colorButtonClicked(_:)))
+        buttonAddTarget(greenColor, self, action: #selector(colorButtonClicked(_:)))
+        buttonAddTarget(orangeColor, self, action: #selector(colorButtonClicked(_:)))
     }
     
     @objc func colorButtonClicked(_ sender: ColorButton) {

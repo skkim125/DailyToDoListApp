@@ -21,10 +21,10 @@ final class AddToDoViewController: BaseViewController {
     private let titleTextField = UITextField()
     private let divider = DividerLine()
     private let memoTextView = UITextView()
-    private let deadlineButton = ToDoElementButton(TodoContents.deadline)
-    private let hashTagButton = ToDoElementButton(TodoContents.hashTag)
-    private let importantValueButton = ToDoElementButton(TodoContents.importantValue)
-    private let addImageButton = ToDoElementButton(TodoContents.addImage)
+    private let deadlineButton = MenuButtonUI()
+    private let hashTagButton = MenuButtonUI()
+    private let importantValueButton = MenuButtonUI()
+    private let addImageButton = MenuButtonUI()
     private let selectImageView = UIImageView()
     private let imageRemoveButton = UIButton(type: .system)
     
@@ -145,6 +145,16 @@ final class AddToDoViewController: BaseViewController {
         elementStackView.axis = .vertical
         elementStackView.spacing = 20
         elementStackView.alignment = .center
+        
+        deadlineButton.getButtonTag(element: .deadline)
+        deadlineButton.configureButtonText(title: TodoContents.deadline.rawValue)
+        hashTagButton.getButtonTag(element: .hashTag)
+        hashTagButton.configureButtonText(title: TodoContents.hashTag.rawValue)
+        importantValueButton.getButtonTag(element: .importantValue)
+        importantValueButton.configureButtonText(title: TodoContents.importantValue.rawValue)
+        addImageButton.getButtonTag(element: .addImage)
+        addImageButton.configureButtonText(title: TodoContents.addImage.rawValue)
+        
         
         buttonAddTarget(deadlineButton, self, action: #selector(todoClicked(_:)))
         buttonAddTarget(hashTagButton, self, action: #selector(todoClicked(_:)))

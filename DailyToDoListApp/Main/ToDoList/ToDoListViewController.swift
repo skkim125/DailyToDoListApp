@@ -13,7 +13,7 @@ final class ToDoListViewController: BaseViewController {
     private let toDoListTableView = UITableView()
     
     private let toDoRepository = ToDoRepository()
-    private var list: Results<ToDo>!
+    var list: [ToDo]?
     var beforeVC: MainViewController?
     
     
@@ -34,17 +34,17 @@ final class ToDoListViewController: BaseViewController {
     }
     
     private func sortOfDefault() {
-        list = list.sorted(byKeyPath: SortType.defualt.updateValueType, ascending: true)
+        list = list?.sorted(by: { $0.date > $1.date })
         toDoListTableView.reloadData()
     }
     
     private func sortOfImportantValue() {
-        list = list.sorted(byKeyPath: SortType.importantValue.updateValueType, ascending: false)
+        list = list?.sorted(by: { $0.importantValue > $1.importantValue })
         toDoListTableView.reloadData()
     }
     
     private func sortOfDeadLine() {
-        list = list.sorted(byKeyPath: SortType.deadline.updateValueType, ascending: true)
+        list = list?.sorted(by: { $0.deadline > $1.deadline })
         toDoListTableView.reloadData()
     }
     
@@ -68,10 +68,7 @@ final class ToDoListViewController: BaseViewController {
     func configureNavigationBar(sortType: ListSortType) {
         navigationItem.title = sortType.rawValue
     }
-    
-    func configureSetList(list: Results<ToDo>) {
-        self.list = list
-    }
+
     
     private func updateVC(_ tv: UITableView) {
         if let vc = self.beforeVC {
@@ -82,12 +79,12 @@ final class ToDoListViewController: BaseViewController {
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return list?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ToDoListTableViewCell.id, for: indexPath) as! ToDoListTableViewCell
-        let data = list[indexPath.row]
+        guard let data = list?[indexPath.row] else { return cell }
         
         cell.configureTableViewCellUI(data: data)
         cell.isDoneClosure = { before in
@@ -107,7 +104,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let data = list[indexPath.row]
+        guard let data = list?[indexPath.row] else { return nil }
         
         let edit = UIContextualAction(style: .normal, title: data.isFlaged ? "깃발 해제" : "깃발 표시") { (action, view, success: @escaping (Bool) -> Void) in
             

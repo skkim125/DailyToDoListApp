@@ -94,16 +94,16 @@ final class CalendarViewController: BaseViewController {
         calendarView.dataSource = self
         
         nextButton.setImage(UIImage(systemName: "chevron.forward"), for: .normal)
-        nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
         nextButton.tintColor = .white
+        buttonAddTarget(nextButton, self, action: #selector(nextButtonClicked))
         
         previousButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
         previousButton.tintColor = .white
-        previousButton.addTarget(self, action: #selector(previousButtonClicked), for: .touchUpInside)
-        
+        buttonAddTarget(previousButton, self, action: #selector(previousButtonClicked))
+
         calendarStyleButton.setImage(UIImage(systemName: "chevron.up"), for: .normal)
         calendarStyleButton.tintColor = .lightGray
-        calendarStyleButton.addTarget(self, action: #selector(calendarStyleChange), for: .touchUpInside)
+        buttonAddTarget(calendarStyleButton, self, action: #selector(calendarStyleChange))
     }
     
     @objc private func nextButtonClicked() {
