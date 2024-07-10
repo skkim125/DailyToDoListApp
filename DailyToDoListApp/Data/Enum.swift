@@ -25,7 +25,7 @@ enum SortType: String {
     }
 }
 
-enum ImportantVlue: String, CaseIterable {
+enum ImportantValue: String, CaseIterable {
     case low = "낮음"
     case mid = "보통"
     case high = "높음"
@@ -43,7 +43,6 @@ enum ImportantVlue: String, CaseIterable {
 }
 
 enum TodoContents: String, CaseIterable {
-    case memos
     case deadline = "마감일"
     case hashTag = "태그"
     case importantValue = "우선순위"

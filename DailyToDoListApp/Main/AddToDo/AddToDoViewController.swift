@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 
 protocol ToDoContentsDelegate {
-    func sendHashTag(hashtag: String)
-    func sendDeadline(date: Date)
-    func sendImportantValue(importantValue: Int)
+    func sendHashTag()
+    func sendDeadline()
+    func sendImportantValue()
     func sendImage(image: UIImage?)
 }
 
@@ -32,11 +32,7 @@ final class AddToDoViewController: BaseViewController {
     private let toDoRepository = ToDoRepository()
     
     private var titleText: String?
-    private var memo: String?
-    private var hashtag: String?
-    private var deadline: Date?
-    private var importantValue: Int?
-    var viewModel = AddToDoViewModel()
+    var viewModel = ToDoViewModel()
     var sendData: (() -> Void)?
     
     override func configureNavigationBar() {
@@ -52,8 +48,7 @@ final class AddToDoViewController: BaseViewController {
     
     @objc private func addButtonClicked() {
         if let title = titleText {
-            memo = memoTextView.text
-            let todo = ToDo(title: title, memo: memo ?? nil, hashTag: hashtag ?? "", date: Date(), deadline: deadline ?? Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: Date())), importantValue: importantValue ?? 1)
+            let todo = ToDo(title: title, memo: viewModel.inputTextViewText.value ?? "", hashTag: viewModel.inputHashtagText.value ?? "", date: Date(), deadline: Date(timeInterval: 86399, since: Calendar.current.startOfDay(for: viewModel.inputDate.value ?? Date())), importantValue: viewModel.inputImportantValue.value ?? 1)
             
             toDoRepository.addToDo(todo: todo)
             if let image = selectImageView.image {
@@ -206,40 +201,26 @@ final class AddToDoViewController: BaseViewController {
             vc.beforeView = self
             vc.viewModel = self.viewModel
             
-            if let deadline = self.deadline {
-                vc.datePicker.date = deadline
-                
-                let formatDateStr = DateFormatter.customDateFormatter(date: deadline)
-                vc.deadlineLabel.text = formatDateStr
-            }
             navigationController?.pushViewController(vc, animated: true)
             
         case .hashTag:
             let vc = SetHashTagViewController()
             vc.beforeVC = self
-            if let text = hashtag {
-                vc.hashTagTextField.text = text
-                vc.hashTagLabel.text = hashTagButton.todoDataLabel.text
-            }
+            vc.viewModel = self.viewModel
+            
             navigationController?.pushViewController(vc, animated: true)
             
         case .importantValue:
             let vc = SetImportantValueViewController()
             vc.beforeVC = self
-            if let value = importantValue {
-                vc.importantValue = value
-            }
+            vc.viewModel = self.viewModel
+            
             navigationController?.pushViewController(vc, animated: true)
             
         case .addImage:
             let imagePicker = SetImageViewController()
             imagePicker.beforeVC = self
             navigationController?.pushViewController(imagePicker, animated: true)
-            
-        default:
-            let vc = UIViewController()
-            navigationController?.pushViewController(vc, animated: true)
-            
         }
     }
     
@@ -279,19 +260,16 @@ extension AddToDoViewController: UITextViewDelegate {
 
 extension AddToDoViewController: ToDoContentsDelegate {
     
-    func sendHashTag(hashtag: String) {
-        self.hashtag = hashtag
-        hashTagButton.todoDataLabel.text = hashtag.isEmpty ? nil : "#" + hashtag
+    func sendHashTag() {
+        hashTagButton.todoDataLabel.text = viewModel.outputHashtagText.value
     }
     
-    func sendDeadline(date: Date) {
-        self.deadline = date
+    func sendDeadline() {
         deadlineButton.todoDataLabel.text = viewModel.outputDateLabelText.value
     }
     
-    func sendImportantValue(importantValue: Int) {
-        self.importantValue = importantValue
-        importantValueButton.todoDataLabel.text = ImportantVlue.allCases[importantValue].rawValue
+    func sendImportantValue() {
+        importantValueButton.todoDataLabel.text = viewModel.outputImportantValueText.value
     }
     
     func sendImage(image: UIImage?) {

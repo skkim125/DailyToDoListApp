@@ -12,12 +12,13 @@ final class SetDeadLineViewController: BaseViewController {
     let datePicker = CustomDatePicker()
     let deadlineLabel = UILabel()
     
-    var viewModel: AddToDoViewModel?
+    var viewModel: ToDoViewModel?
     var beforeView: AddToDoViewController?
     
     func bindDate() {
         if let vm = viewModel {
             deadlineLabel.text = vm.outputDateLabelText.value
+            datePicker.date = vm.inputDate.value ?? Date()
         }
     }
     
@@ -42,7 +43,7 @@ final class SetDeadLineViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        beforeView?.sendDeadline(date: datePicker.date)
+        beforeView?.sendDeadline()
     }
     
     override func configureView() {

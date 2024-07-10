@@ -7,10 +7,13 @@
 
 import Foundation
 
-class AddToDoViewModel {
+class ToDoViewModel {
     
+    var inputTextFieldLabel: Observable<String?> = Observable("")
     var inputTextViewText: Observable<String?> = Observable("")
-    var inputDate: Observable<Date> = Observable(Date())
+    var inputDate: Observable<Date?> = Observable(Date())
+    var inputHashtagText: Observable<String?> = Observable("")
+    var inputImportantValue: Observable<Int?> = Observable(1)
     
     var outputhiddenLabel: Observable<Bool> = Observable(false)
     var outputDateLabelText: Observable<String?> = Observable("")
@@ -23,7 +26,17 @@ class AddToDoViewModel {
         }
         
         inputDate.bind { date in
-            self.convertDate(date: date)
+            self.convertDate(date: date ?? Date())
+        }
+        
+        inputHashtagText.bind { hashtag in
+            if let ht = hashtag, !ht.trimmingCharacters(in: .whitespaces).isEmpty {
+                self.outputHashtagText.value = "#" + ht
+            }
+        }
+        
+        inputImportantValue.bind { value in
+            self.outputImportantValueText.value = ImportantValue.allCases[value ?? 1].rawValue
         }
     }
     

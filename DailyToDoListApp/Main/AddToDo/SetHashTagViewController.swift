@@ -10,15 +10,23 @@ import SnapKit
 
 final class SetHashTagViewController: BaseViewController {
     private let textfieldLine = DividerLine()
-    let hashTagLabel = UILabel()
-    let hashTagTextField = UITextField()
+    private let hashTagLabel = UILabel()
+    private let hashTagTextField = UITextField()
     
     var beforeVC: AddToDoViewController?
+    var viewModel: ToDoViewModel?
     
     override func configureHierarchy() {
         view.addSubview(hashTagTextField)
         view.addSubview(textfieldLine)
         view.addSubview(hashTagLabel)
+    }
+    
+    func bindData() {
+        if let vm = viewModel {
+            hashTagTextField.text = vm.inputHashtagText.value
+            hashTagLabel.text = vm.outputHashtagText.value
+        }
     }
     
     override func configureLayout() {
@@ -50,23 +58,35 @@ final class SetHashTagViewController: BaseViewController {
         hashTagLabel.textAlignment = .center
         hashTagLabel.textColor = .systemOrange
         hashTagLabel.font = .boldSystemFont(ofSize: 20)
+        
+        if let vm = viewModel {
+            hashTagTextField.text = vm.inputHashtagText.value
+            hashTagLabel.text = vm.outputHashtagText.value
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print(hashTagLabel.text ?? "")
-        if let vc = beforeVC, let hashtag = hashTagTextField.text {
-            vc.sendHashTag(hashtag: hashtag)
+        if let vc = beforeVC {
+            vc.sendHashTag()
         }
     }
 }
 
 extension SetHashTagViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        guard let text = textField.text, !text.trimmingCharacters(in: .whitespaces).isEmpty else {
-            hashTagLabel.text = nil
-            return
+        if let vm = viewModel {
+            guard let text = textField.text, !text.trimmingCharacters(in: .whitespaces).isEmpty else {
+                vm.inputHashtagText.value = nil
+                vm.outputHashtagText.value = nil
+                
+                bindData()
+                return
+            }
+            
+            vm.inputHashtagText.value = text
+            
+            bindData()
         }
-        hashTagLabel.text = "#" + hashTagTextField.text!
     }
 }

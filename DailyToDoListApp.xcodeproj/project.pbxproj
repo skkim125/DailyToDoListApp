@@ -22,7 +22,7 @@
 		043582A82C3AEC020045B1FE /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043582A72C3AEC020045B1FE /* UICollectionView+Extension.swift */; };
 		043582AB2C3AEC510045B1FE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043582AA2C3AEC510045B1FE /* String+Extension.swift */; };
 		043582AD2C3AECAC0045B1FE /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043582AC2C3AECAC0045B1FE /* Date+Extension.swift */; };
-		04671F442C3E80BC00EF5C1B /* AddToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04671F432C3E80BC00EF5C1B /* AddToDoViewModel.swift */; };
+		04671F442C3E80BC00EF5C1B /* ToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04671F432C3E80BC00EF5C1B /* ToDoViewModel.swift */; };
 		04671F462C3E812000EF5C1B /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04671F452C3E812000EF5C1B /* Observable.swift */; };
 		04C264E52C368BD9009EDDB9 /* SetDeadLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E42C368BD9009EDDB9 /* SetDeadLineViewController.swift */; };
 		04C264E72C3695AE009EDDB9 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C264E62C3695AE009EDDB9 /* CustomDatePicker.swift */; };
@@ -85,7 +85,7 @@
 		043582A72C3AEC020045B1FE /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		043582AA2C3AEC510045B1FE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		043582AC2C3AECAC0045B1FE /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		04671F432C3E80BC00EF5C1B /* AddToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewModel.swift; sourceTree = "<group>"; };
+		04671F432C3E80BC00EF5C1B /* ToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewModel.swift; sourceTree = "<group>"; };
 		04671F452C3E812000EF5C1B /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		04C264E42C368BD9009EDDB9 /* SetDeadLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDeadLineViewController.swift; sourceTree = "<group>"; };
 		04C264E62C3695AE009EDDB9 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 				04EBB1CD2C35A30F0096F65F /* SetHashTagViewController.swift */,
 				04C264E82C36D192009EDDB9 /* SetImportantValueViewController.swift */,
 				04C264EC2C37CA7F009EDDB9 /* SetImageViewController.swift */,
-				04671F432C3E80BC00EF5C1B /* AddToDoViewModel.swift */,
+				04671F432C3E80BC00EF5C1B /* ToDoViewModel.swift */,
 			);
 			path = AddToDo;
 			sourceTree = "<group>";
@@ -378,7 +378,7 @@
 				04EBB1C82C3541CE0096F65F /* ToDoListTableViewCell.swift in Sources */,
 				04E888C82C33F749000A3FA1 /* AddToDoViewController.swift in Sources */,
 				04E888C22C33EC4E000A3FA1 /* ToDo.swift in Sources */,
-				04671F442C3E80BC00EF5C1B /* AddToDoViewModel.swift in Sources */,
+				04671F442C3E80BC00EF5C1B /* ToDoViewModel.swift in Sources */,
 				04C264F42C39112D009EDDB9 /* CalendarViewController.swift in Sources */,
 				0425C3E02C3C3DD100468975 /* FolderTableViewCell.swift in Sources */,
 				0425C3C82C3B661600468975 /* UITableView+Extension.swift in Sources */,
