@@ -17,6 +17,8 @@ final class MainViewController: BaseViewController {
     private let addTodoButton = MainViewButton(title: "새로운 할 일", image: "plus.circle.fill", type: .system, fontSize: 20)
     private let addMyFolderButton = MainViewButton(title: "목록 추가", image: nil, type: .system, fontSize: 18)
     
+    private let folderTableViewLabel = UILabel()
+    
     private let toDoRepository = ToDoRepository()
     private let folderRepository = MyFolderRepository()
     private lazy var list: Results<ToDo> = toDoRepository.loadToDoList()
@@ -28,9 +30,10 @@ final class MainViewController: BaseViewController {
     }
     
     override func configureNavigationBar() {
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.title = "오늘 할 일"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarButtonClicked))
     }
     
@@ -47,6 +50,7 @@ final class MainViewController: BaseViewController {
     
     override func configureHierarchy() {
         view.addSubview(collectionView)
+        view.addSubview(folderTableViewLabel)
         view.addSubview(folderTableView)
         view.addSubview(addTodoButton)
         view.addSubview(addMyFolderButton)
@@ -59,9 +63,16 @@ final class MainViewController: BaseViewController {
             make.height.equalTo(350)
         }
         
-        folderTableView.snp.makeConstraints { make in
+        folderTableViewLabel.snp.makeConstraints { make in
             make.top.equalTo(collectionView.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(20)
+        }
+        
+        folderTableView.snp.makeConstraints { make in
+            make.top.equalTo(folderTableViewLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(350)
         }
         
         addTodoButton.snp.makeConstraints { make in
@@ -85,9 +96,13 @@ final class MainViewController: BaseViewController {
         collectionView.register(MainCollectionView.self, forCellWithReuseIdentifier: MainCollectionView.id)
         collectionView.backgroundColor = .black
         
+        folderTableViewLabel.text = "목록"
+        folderTableViewLabel.font = .boldSystemFont(ofSize: 20)
+        
         folderTableView.delegate = self
         folderTableView.dataSource = self
-        folderTableView.rowHeight = 60
+        folderTableView.rowHeight = 70
+        folderTableView.separatorStyle = .none
         folderTableView.register(FolderTableViewCell.self, forCellReuseIdentifier: FolderTableViewCell.id)
         
         buttonAddTarget(addTodoButton, self, action: #selector(addTodoButtonClicked))
@@ -108,7 +123,7 @@ final class MainViewController: BaseViewController {
     @objc private func addMyFolderButtonClicked() {
         let vc = AddMyFolderViewController()
         vc.sendData = {
-            self.collectionView.reloadData()
+            self.folderTableView.reloadData()
             self.view.makeToast("폴더가 추가되었어요")
         }
         
@@ -142,7 +157,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let vc = ToDoListViewController()
         
         vc.list = loadList(data: data, list: list)
-        vc.configureNavigationBar(sortType: data)
+        vc.configureNavigationBar(title: data.rawValue)
         vc.beforeVC = self
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -179,11 +194,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let data = folderRepository.loadMyFolder()[indexPath.row]
         
         cell.selectionStyle = .none
-        cell.configureView(folder: data)
+        cell.configureButton(folder: data)
         cell.moveData = {
             let vc = ToDoListViewController()
             vc.beforeVC = self
+            vc.configureNavigationBar(title: data.title)
             vc.list = Array(data.todo)
+            
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
         return cell

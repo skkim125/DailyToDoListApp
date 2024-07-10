@@ -12,7 +12,14 @@ final class SetDeadLineViewController: BaseViewController {
     let datePicker = CustomDatePicker()
     let deadlineLabel = UILabel()
     
+    var viewModel: AddToDoViewModel?
     var beforeView: AddToDoViewController?
+    
+    func bindDate() {
+        if let vm = viewModel {
+            deadlineLabel.text = vm.outputDateLabelText.value
+        }
+    }
     
     override func configureHierarchy() {
         view.addSubview(datePicker)
@@ -45,11 +52,17 @@ final class SetDeadLineViewController: BaseViewController {
         deadlineLabel.text = "\(DateFormatter.customDateFormatter(date: Date()))"
         deadlineLabel.font = .boldSystemFont(ofSize: 20)
         deadlineLabel.textAlignment = .center
+        
+        bindDate()
     }
     
     @objc private func datePickerClicked(_ sender: UIDatePicker) {
         print(sender.date)
         
-        deadlineLabel.text = "\(DateFormatter.customDateFormatter(date: sender.date))"
+        if let vm = viewModel {
+            vm.inputDate.value = sender.date
+        }
+        
+        bindDate()
     }
 }

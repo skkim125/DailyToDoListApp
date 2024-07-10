@@ -11,6 +11,7 @@ import SnapKit
 
 final class ToDoListViewController: BaseViewController {
     private let toDoListTableView = UITableView()
+    private let addTodoButton = MainViewButton(title: "새로운 할 일", image: "plus.circle.fill", type: .system, fontSize: 20)
     
     private let toDoRepository = ToDoRepository()
     var list: [ToDo]?
@@ -30,7 +31,12 @@ final class ToDoListViewController: BaseViewController {
         })
                                    
         let menus = UIMenu(title: "정렬 기준", options: .displayInline, children: [defaultSort, sortofImportant, sortofDeadline])
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), menu: menus)
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
     private func sortOfDefault() {
@@ -50,11 +56,19 @@ final class ToDoListViewController: BaseViewController {
     
     override func configureHierarchy() {
         view.addSubview(toDoListTableView)
+        view.addSubview(addTodoButton)
     }
     
     override func configureLayout() {
         toDoListTableView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        addTodoButton.snp.makeConstraints { make in
+            make.top.equalTo(toDoListTableView.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.height.equalTo(40)
         }
     }
     
@@ -65,8 +79,8 @@ final class ToDoListViewController: BaseViewController {
         toDoListTableView.rowHeight = 100
     }
     
-    func configureNavigationBar(sortType: ListSortType) {
-        navigationItem.title = sortType.rawValue
+    func configureNavigationBar(title: String) {
+        navigationItem.title = title
     }
 
     

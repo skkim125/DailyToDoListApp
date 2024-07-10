@@ -14,20 +14,24 @@ class FolderTableViewCell: BaseTableViewCell {
     var moveData: (()->Void)?
     
     override func configureHierarchy() {
-        addSubview(folderButton)
+        contentView.addSubview(folderButton)
     }
     
     override func configureLayout() {
         folderButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(15)
-            make.height.equalTo(50)
+            make.edges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
         }
     }
     
-    func configureView(folder: Folder) {
+    func configureButton(folder: Folder) {
+        folderButton.configuration?.baseBackgroundColor = UIColor(hex: folder.color)
         folderButton.todoButtonLabel.text = folder.title
+        folderButton.todoButtonLabel.font = .systemFont(ofSize: 16)
+        folderButton.todoButtonLabel.textColor = .white
         folderButton.todoDataLabel.text = "\(folder.todo.count)"
-        folderButton.backgroundColor = UIColor(hex: folder.color)
+        folderButton.goNextViewImageView.tintColor = .white
+        folderButton.todoDataLabel.textColor = .white
+        
         folderButton.addTarget(self, action: #selector(folderButtonClicked), for: .touchUpInside)
     }
     

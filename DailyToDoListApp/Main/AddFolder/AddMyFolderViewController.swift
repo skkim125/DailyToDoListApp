@@ -26,6 +26,7 @@ class AddMyFolderViewController: BaseViewController {
     private let orangeColor = ColorButton(color: FolderColor.orange.rawValue, buttonType: .custom)
     
     private let myFolderRepository = MyFolderRepository()
+    private var titleText: String?
     private var color: String?
     var sendData: (()->Void)?
     
@@ -33,6 +34,7 @@ class AddMyFolderViewController: BaseViewController {
         navigationItem.title = "새로운 목록"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(backButtonClicked))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(addButtonClicked))
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     @objc private func backButtonClicked() {
@@ -157,8 +159,8 @@ class AddMyFolderViewController: BaseViewController {
 extension AddMyFolderViewController: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        
-        if let title = textField.text {
+        titleText = textField.text
+        if let title = titleText {
             if title.trimmingCharacters(in: .whitespaces).isEmpty {
                 navigationItem.rightBarButtonItem?.isEnabled = false
             } else {

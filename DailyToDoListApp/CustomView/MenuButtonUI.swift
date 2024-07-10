@@ -30,7 +30,7 @@ class MenuButtonUI: UIButton {
         self.configuration = configuration
         tintColor = .white
         clipsToBounds = true
-        layer.cornerRadius = 8
+        layer.cornerRadius = 12
     }
     
     private func configureHierarchy() {
@@ -63,7 +63,7 @@ class MenuButtonUI: UIButton {
         tag = element.buttonTag
     }
     
-    func configureSubView() {
+    private func configureSubView() {
         todoButtonLabel.textColor = .white.withAlphaComponent(0.7)
         todoButtonLabel.font = .systemFont(ofSize: 15)
         

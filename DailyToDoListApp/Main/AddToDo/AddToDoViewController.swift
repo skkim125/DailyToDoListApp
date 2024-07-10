@@ -19,6 +19,7 @@ final class AddToDoViewController: BaseViewController {
     private lazy var elementStackView = UIStackView(arrangedSubviews: [contentsStackView, deadlineButton, hashTagButton, importantValueButton, selectImageView, addImageButton])
     private lazy var contentsStackView = UIStackView(arrangedSubviews: [titleTextField, divider, memoTextView])
     private let titleTextField = UITextField()
+    private let memoTextViewPlaceholder = UILabel()
     private let divider = DividerLine()
     private let memoTextView = UITextView()
     private let deadlineButton = MenuButtonUI()
@@ -29,13 +30,14 @@ final class AddToDoViewController: BaseViewController {
     private let imageRemoveButton = UIButton(type: .system)
     
     private let toDoRepository = ToDoRepository()
-    var sendData: (() -> Void)?
     
     private var titleText: String?
     private var memo: String?
     private var hashtag: String?
     private var deadline: Date?
     private var importantValue: Int?
+    var viewModel = AddToDoViewModel()
+    var sendData: (() -> Void)?
     
     override func configureNavigationBar() {
         navigationItem.title = "새로운 할 일"
@@ -69,6 +71,7 @@ final class AddToDoViewController: BaseViewController {
         view.addSubview(contentsStackView)
         view.addSubview(elementStackView)
         view.addSubview(imageRemoveButton)
+        view.addSubview(memoTextViewPlaceholder)
     }
     
     override func configureLayout() {
@@ -95,6 +98,11 @@ final class AddToDoViewController: BaseViewController {
         memoTextView.snp.makeConstraints { make in
             make.leading.equalTo(contentsStackView.safeAreaLayoutGuide).inset(15)
             make.trailing.equalTo(contentsStackView.safeAreaLayoutGuide).inset(10)
+        }
+        
+        memoTextViewPlaceholder.snp.makeConstraints { make in
+            make.top.equalTo(memoTextView).inset(8)
+            make.leading.equalTo(memoTextView).inset(5)
         }
         
         deadlineButton.snp.makeConstraints { make in
@@ -129,11 +137,17 @@ final class AddToDoViewController: BaseViewController {
         }
     }
     
+    func bindData() {
+        viewModel.outputhiddenLabel.bind { isHidden in
+            self.memoTextViewPlaceholder.isHidden = isHidden
+        }
+    }
+    
     override func configureView() {
         contentsStackView.axis = .vertical
         contentsStackView.alignment = .center
         contentsStackView.backgroundColor = .systemGray5
-        contentsStackView.layer.cornerRadius = 8
+        contentsStackView.layer.cornerRadius = 12
         
         titleTextField.delegate = self
         titleTextField.placeholder = "제목"
@@ -141,6 +155,7 @@ final class AddToDoViewController: BaseViewController {
         
         memoTextView.backgroundColor = .clear
         memoTextView.font = .systemFont(ofSize: 17)
+        memoTextView.delegate = self
         
         elementStackView.axis = .vertical
         elementStackView.spacing = 20
@@ -171,6 +186,10 @@ final class AddToDoViewController: BaseViewController {
         imageRemoveButton.setImage(image, for: .normal)
         imageRemoveButton.tintColor = .white
         imageRemoveButton.addTarget(self, action: #selector(removeImageButtonClicked), for: .touchUpInside)
+        
+        memoTextViewPlaceholder.text = "메모를 입력해주세요"
+        memoTextViewPlaceholder.textColor = .gray
+        bindData()
     }
     
     @objc private func removeImageButtonClicked() {
@@ -185,6 +204,7 @@ final class AddToDoViewController: BaseViewController {
         case .deadline:
             let vc = SetDeadLineViewController()
             vc.beforeView = self
+            vc.viewModel = self.viewModel
             
             if let deadline = self.deadline {
                 vc.datePicker.date = deadline
@@ -251,6 +271,12 @@ extension AddToDoViewController: UITextFieldDelegate {
     }
 }
 
+extension AddToDoViewController: UITextViewDelegate {
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        viewModel.inputTextViewText.value = textView.text
+    }
+}
+
 extension AddToDoViewController: ToDoContentsDelegate {
     
     func sendHashTag(hashtag: String) {
@@ -260,8 +286,7 @@ extension AddToDoViewController: ToDoContentsDelegate {
     
     func sendDeadline(date: Date) {
         self.deadline = date
-        let formatDateStr = DateFormatter.customDateFormatter(date: date)
-        deadlineButton.todoDataLabel.text = formatDateStr
+        deadlineButton.todoDataLabel.text = viewModel.outputDateLabelText.value
     }
     
     func sendImportantValue(importantValue: Int) {
